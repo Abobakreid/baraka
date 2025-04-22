@@ -2,15 +2,15 @@ import Details from "@/components/Details";
 import OverlaySection from "@/components/OverlaySection";
 import Services from "@/components/Services";
 import SimilarProducts from "@/components/SimilarProducts";
-import { productById, products } from "@/server/actions/oils.actions";
+import { productById } from "@/server/actions/oils.actions";
 import { notFound } from "next/navigation";
 
-export async function generateStaticParams() {
-  const res = await products();
-  return res.map((product) => ({
-    id: product.id.toString(),
-  }));
-}
+// export async function generateStaticParams() {
+//   const res = await products();
+//   return res.map((product) => ({
+//     id: product.id.toString(),
+//   }));
+// }
 
 export async function generateMetadata({
   params,
