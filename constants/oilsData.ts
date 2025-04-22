@@ -1,0 +1,202 @@
+export const oilsAbout = [
+  {
+    id: "1",
+    image: "/oils.png",
+    title: "Shell Helix HX5",
+    price: "4500",
+    discountPercentage: "25",
+    isNew: false,
+    finished: false,
+    brand: "shell",
+    Viscosity: "15W-40",
+    Compatibility: "محركات البنزين والديزل",
+    Advantages: "يحمي المحرك من التآكل، يحسن الأداء، يقلل الاحتكاك",
+    productType: "زيت محرك",
+    cardType: "الزيوت",
+    remain: 150,
+    sold: 170,
+    updatedAt: "2025-03-01",
+    rate: 5,
+    description: `زيت محرك معدني عالي الجودة، مصمم خصيصًا لتلبية احتياجات السيارات
+                ذات المحركات التقليدية. يتميز بتركيبته المتوازنة التي توفر حماية
+                فعالة للمحرك.`,
+  },
+  {
+    id: "2",
+    image: "/oils.png",
+    title: "Shell Helix HX5",
+    price: "2500",
+    discountPercentage: "25",
+    isNew: false,
+    finished: false,
+    brand: "shell",
+    Viscosity: "15W-40",
+    Compatibility: "محركات البنزين والديزل",
+    Advantages: "يحمي المحرك من التآكل، يحسن الأداء، يقلل الاحتكاك",
+    productType: "زيت محرك",
+    cardType: "الزيوت",
+    remain: 150,
+    sold: 170,
+    updatedAt: "2025-03-01",
+    rate: 5,
+    description: `زيت محرك معدني عالي الجودة، مصمم خصيصًا لتلبية احتياجات السيارات
+      ذات المحركات التقليدية. يتميز بتركيبته المتوازنة التي توفر حماية
+      فعالة للمحرك.`,
+  },
+  {
+    id: "3",
+    image: "/oils.png",
+    title: "Shell Helix HX5",
+    price: "1230",
+    discountPercentage: "",
+    isNew: true,
+    finished: false,
+    brand: "shell",
+    Viscosity: "15W-40",
+    Compatibility: "محركات البنزين والديزل",
+    Advantages: "يحمي المحرك من التآكل، يحسن الأداء، يقلل الاحتكاك",
+    productType: "زيت محرك",
+    cardType: "الزيوت",
+    remain: 150,
+    sold: 170,
+    updatedAt: "2025-03-01",
+    rate: 5,
+    description: `زيت محرك معدني عالي الجودة، مصمم خصيصًا لتلبية احتياجات السيارات
+      ذات المحركات التقليدية. يتميز بتركيبته المتوازنة التي توفر حماية
+      فعالة للمحرك.`,
+  },
+  {
+    id: "4",
+    image: "/oils.png",
+    title: "Shell Helix HX5",
+    price: "90",
+    discountPercentage: "",
+    isNew: true,
+    finished: false,
+    brand: "shell",
+    Viscosity: "15W-40",
+    Compatibility: "محركات البنزين والديزل",
+    Advantages: "يحمي المحرك من التآكل، يحسن الأداء، يقلل الاحتكاك",
+    productType: "زيت محرك",
+    cardType: "الزيوت",
+    remain: 150,
+    sold: 170,
+    updatedAt: "2025-03-01",
+    rate: 5,
+    description: `زيت محرك معدني عالي الجودة، مصمم خصيصًا لتلبية احتياجات السيارات
+      ذات المحركات التقليدية. يتميز بتركيبته المتوازنة التي توفر حماية
+      فعالة للمحرك.`,
+  },
+  {
+    id: "5",
+    image: "/oils.png",
+    title: "Shell Helix HX5",
+    price: "150",
+    discountPercentage: "25",
+    isNew: false,
+    finished: false,
+    brand: "mobil",
+    Viscosity: "15W-40",
+    Compatibility: "محركات البنزين والديزل",
+    Advantages: "يحمي المحرك من التآكل، يحسن الأداء، يقلل الاحتكاك",
+    productType: "زيت محرك",
+    cardType: "الزيوت",
+    remain: 150,
+    sold: 170,
+    updatedAt: "2025-03-01",
+    rate: 5,
+    description: `زيت محرك معدني عالي الجودة، مصمم خصيصًا لتلبية احتياجات السيارات
+      ذات المحركات التقليدية. يتميز بتركيبته المتوازنة التي توفر حماية
+      فعالة للمحرك.`,
+  },
+  {
+    id: "6",
+    image: "/oils.png",
+    title: "Shell Helix HX5",
+    price: "2000",
+    discountPercentage: "25",
+    isNew: false,
+    finished: false,
+    brand: "mobil",
+    Viscosity: "15W-40",
+    Compatibility: "محركات البنزين والديزل",
+    Advantages: "يحمي المحرك من التآكل، يحسن الأداء، يقلل الاحتكاك",
+    productType: "زيت محرك",
+    cardType: "الزيوت",
+    remain: 150,
+    sold: 170,
+    updatedAt: "2025-03-01",
+    rate: 5,
+    description: `زيت محرك معدني عالي الجودة، مصمم خصيصًا لتلبية احتياجات السيارات
+      ذات المحركات التقليدية. يتميز بتركيبته المتوازنة التي توفر حماية
+      فعالة للمحرك.`,
+  },
+  {
+    id: "6",
+    image: "/oils.png",
+    title: "Shell Helix HX5",
+    price: "3000",
+    discountPercentage: "25",
+    isNew: false,
+    finished: false,
+    brand: "mobil",
+    Viscosity: "15W-40",
+    Compatibility: "محركات البنزين والديزل",
+    Advantages: "يحمي المحرك من التآكل، يحسن الأداء، يقلل الاحتكاك",
+    productType: "زيت محرك",
+    cardType: "الزيوت",
+    remain: 150,
+    sold: 170,
+    updatedAt: "2025-03-01",
+    rate: 5,
+    description: `زيت محرك معدني عالي الجودة، مصمم خصيصًا لتلبية احتياجات السيارات
+      ذات المحركات التقليدية. يتميز بتركيبته المتوازنة التي توفر حماية
+      فعالة للمحرك.`,
+  },
+];
+
+export const oilsSocialProof = [
+  {
+    image: "/socialProof/logomark-6.svg",
+    text: "Nietzsche",
+  },
+  {
+    image: "/socialProof/logomark-5.svg",
+    text: "GloabalBank",
+  },
+  {
+    image: "/socialProof/logomark-4.svg",
+    text: "Spherule",
+  },
+  {
+    image: "/socialProof/logomark-3.svg",
+    text: "FeatherDev",
+  },
+  {
+    image: "/socialProof/logomark-2.svg",
+    text: "Lightbox",
+  },
+  {
+    image: "/socialProof/logomark-1.svg",
+    text: "BoltShift",
+  },
+];
+
+export const filterOilsOptions = [
+  {
+    label: "الكل",
+    value: "all",
+  },
+  {
+    label: "Shell",
+    value: "shell",
+  },
+  {
+    label: "Mobil",
+    value: "mobil",
+  },
+  {
+    label: "Castrol",
+    value: "castrol",
+  },
+];
