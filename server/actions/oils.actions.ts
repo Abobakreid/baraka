@@ -8,7 +8,7 @@ export const productById = cache(
   },
   [`oil-${crypto.randomUUID()}`],
   {
-    revalidate: 3600,
+    revalidate: 60,
   }
 );
 
@@ -18,7 +18,7 @@ export const products = cache(
   },
   [`oil-${crypto.randomUUID()}`],
   {
-    revalidate: 3600,
+    revalidate: 60,
   }
 );
 
@@ -68,6 +68,6 @@ export const getFilteredData = cache(
   },
   [`oils-${crypto.randomUUID()}`],
   {
-    revalidate: 3600,
+    revalidate: 60,
   }
 );

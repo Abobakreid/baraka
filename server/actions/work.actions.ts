@@ -20,6 +20,6 @@ export const getWorksData = cache(
   },
   [`works-${crypto.randomUUID()}`],
   {
-    revalidate: 3600,
+    revalidate: 60,
   }
 );

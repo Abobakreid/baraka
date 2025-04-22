@@ -2,11 +2,12 @@ import Details from "@/components/Details";
 import OverlaySection from "@/components/OverlaySection";
 import Services from "@/components/Services";
 import SimilarProducts from "@/components/SimilarProducts";
-import { oilsAbout } from "@/constants/oilsData";
-import { productById } from "@/server/actions/oils.actions";
+import { productById, products } from "@/server/actions/oils.actions";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  return oilsAbout.map((product) => ({
+  const res = await products();
+  return res.map((product) => ({
     id: product.id.toString(),
   }));
 }
@@ -84,12 +85,14 @@ export async function generateMetadata({
 }
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const id = (await params).id || "1";
+  const id = (await params).id || "11s5a4s5sas2as5a1s51a";
   const product = await productById(id);
-
+  if (!product) {
+    notFound();
+  }
   return (
     <main>
-      <Details product={product!} />
+      <Details product={product} />
       <SimilarProducts />
       <Services />
       <OverlaySection

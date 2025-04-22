@@ -41,6 +41,6 @@ export const getFilteredParts = cache(
   },
   [`parts-${crypto.randomUUID()}`],
   {
-    revalidate: 3600,
+    revalidate: 60,
   }
 );
