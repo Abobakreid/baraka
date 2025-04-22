@@ -2,11 +2,11 @@ import Details from "@/components/Details";
 import OverlaySection from "@/components/OverlaySection";
 import Services from "@/components/Services";
 import SimilarProducts from "@/components/SimilarProducts";
-import { productById, products } from "@/server/actions/oils.actions";
+import { oilsAbout } from "@/constants/oilsData";
+import { productById } from "@/server/actions/oils.actions";
 
 export async function generateStaticParams() {
-  const res = await products();
-  return res.map((product) => ({
+  return oilsAbout.map((product) => ({
     id: product.id.toString(),
   }));
 }
