@@ -1,6 +1,6 @@
 export const oilsAbout = [
   {
-    id: "1",
+    id: "11s5a4s5sas2as5a1s51a",
     image: "/oils.png",
     title: "Shell Helix HX5",
     price: "4500",
@@ -22,7 +22,7 @@ export const oilsAbout = [
                 فعالة للمحرك.`,
   },
   {
-    id: "2",
+    id: "11s5a4s5sas2as5a1s51a5ss",
     image: "/oils.png",
     title: "Shell Helix HX5",
     price: "2500",
@@ -44,7 +44,7 @@ export const oilsAbout = [
       فعالة للمحرك.`,
   },
   {
-    id: "3",
+    id: "11s5a4s39575as5a1s51a5ss",
     image: "/oils.png",
     title: "Shell Helix HX5",
     price: "1230",
@@ -66,7 +66,7 @@ export const oilsAbout = [
       فعالة للمحرك.`,
   },
   {
-    id: "4",
+    id: "11s5a4s5sas2as766251a5ss",
     image: "/oils.png",
     title: "Shell Helix HX5",
     price: "90",
@@ -88,7 +88,7 @@ export const oilsAbout = [
       فعالة للمحرك.`,
   },
   {
-    id: "5",
+    id: "11s5a4s5s112aas5a1s51a5ss",
     image: "/oils.png",
     title: "Shell Helix HX5",
     price: "150",
@@ -110,7 +110,7 @@ export const oilsAbout = [
       فعالة للمحرك.`,
   },
   {
-    id: "6",
+    id: "11s5a4s5sas2as5a1s5sa2aa5ss",
     image: "/oils.png",
     title: "Shell Helix HX5",
     price: "2000",
@@ -132,7 +132,7 @@ export const oilsAbout = [
       فعالة للمحرك.`,
   },
   {
-    id: "6",
+    id: "11s5a4s5sas2as5645251a5ss",
     image: "/oils.png",
     title: "Shell Helix HX5",
     price: "3000",
