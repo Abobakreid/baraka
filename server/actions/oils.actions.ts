@@ -16,7 +16,7 @@ export const products = cache(
   async () => {
     return oilsAbout;
   },
-  [`oil-${crypto.randomUUID()}`],
+  [`oils`],
   {
     revalidate: 60,
   }

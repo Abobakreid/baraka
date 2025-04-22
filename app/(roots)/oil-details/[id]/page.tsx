@@ -2,15 +2,17 @@ import Details from "@/components/Details";
 import OverlaySection from "@/components/OverlaySection";
 import Services from "@/components/Services";
 import SimilarProducts from "@/components/SimilarProducts";
+import { oilsAbout } from "@/constants/oilsData";
 import { productById } from "@/server/actions/oils.actions";
 import { notFound } from "next/navigation";
 
-// export async function generateStaticParams() {
-//   const res = await products();
-//   return res.map((product) => ({
-//     id: product.id.toString(),
-//   }));
-// }
+export async function generateStaticParams() {
+  return oilsAbout
+    .filter((product) => product.id != null)
+    .map((product) => ({
+      id: String(product.id),
+    }));
+}
 
 export async function generateMetadata({
   params,
