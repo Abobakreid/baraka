@@ -3,6 +3,7 @@ import OverlaySection from "@/components/OverlaySection";
 import Services from "@/components/Services";
 import SimilarProducts from "@/components/SimilarProducts";
 import { productById, products } from "@/server/actions/oils.actions";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
   const res = await products();
@@ -87,10 +88,13 @@ export async function generateMetadata({
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id || "1";
   const product = await productById(id);
+  if (!product) {
+    notFound();
+  }
 
   return (
     <main>
-      <Details product={product!} />
+      <Details product={product} />
       <SimilarProducts />
       <Services />
       <OverlaySection
