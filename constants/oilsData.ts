@@ -157,27 +157,27 @@ export const oilsAbout = [
 
 export const oilsSocialProof = [
   {
-    image: "/socialProof/logomark-6.svg",
+    image: "/socialProofImages/logomark-6.svg",
     text: "Nietzsche",
   },
   {
-    image: "/socialProof/logomark-5.svg",
+    image: "/socialProofImages/logomark-5.svg",
     text: "GloabalBank",
   },
   {
-    image: "/socialProof/logomark-4.svg",
+    image: "/socialProofImages/logomark-4.svg",
     text: "Spherule",
   },
   {
-    image: "/socialProof/logomark-3.svg",
+    image: "/socialProofImages/logomark-3.svg",
     text: "FeatherDev",
   },
   {
-    image: "/socialProof/logomark-2.svg",
+    image: "/socialProofImages/logomark-2.svg",
     text: "Lightbox",
   },
   {
-    image: "/socialProof/logomark-1.svg",
+    image: "/socialProofImages/logomark-1.svg",
     text: "BoltShift",
   },
 ];
