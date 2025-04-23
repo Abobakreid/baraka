@@ -3,16 +3,12 @@ import OverlaySection from "@/components/OverlaySection";
 import Services from "@/components/Services";
 import SimilarProducts from "@/components/SimilarProducts";
 import { productById, products } from "@/server/actions/oils.actions";
-import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
   const res = await products();
-  return (
-    res &&
-    res.map((product) => ({
-      id: product.id.toString() || "11s5a4s5sas2as5a1s51a",
-    }))
-  );
+  return res.map((product) => ({
+    id: product.id.toString(),
+  }));
 }
 
 export async function generateMetadata({
@@ -31,7 +27,9 @@ export async function generateMetadata({
     };
   }
   const price = parseFloat(product.price);
-  const discount = parseFloat(product.discountPercentage) / 100;
+  const discount = product.discountPercentage
+    ? parseFloat(product.discountPercentage) / 100
+    : 0;
   const discountedPrice = price * (1 - discount);
   // todo: edit url
   const baseUrl = "https://your-site.com";
@@ -61,13 +59,12 @@ export async function generateMetadata({
       description: `زيت ${
         product.title
       } بسعر ${discountedPrice.toLocaleString()} ل.س (خصم ${
-        product.discountPercentage
+        product.discountPercentage ? product.discountPercentage : 0
       }). ${product.description}`,
       url: `${baseUrl}/oil-details/${id}`,
-      type: "product",
       images: [
         {
-          url: `${baseUrl}${product.image}`,
+          url: `${baseUrl}/oil-details/${product.image}`,
           width: 800,
           height: 600,
           alt: product.title,
@@ -80,7 +77,7 @@ export async function generateMetadata({
       description: `زيت ${
         product.title
       } بسعر ${discountedPrice.toLocaleString()} ل.س. ${product.description}`,
-      images: [`${baseUrl}${product.image}`],
+      images: [`${baseUrl}/oil-details/${product.image}`],
     },
     robots: "index, follow",
     metadataBase: new URL(baseUrl),
@@ -88,14 +85,12 @@ export async function generateMetadata({
 }
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const id = (await params).id || "11s5a4s5sas2as5a1s51a";
+  const id = (await params).id || "1";
   const product = await productById(id);
-  if (!product) {
-    notFound();
-  }
+
   return (
     <main>
-      <Details product={product} />
+      <Details product={product!} />
       <SimilarProducts />
       <Services />
       <OverlaySection
