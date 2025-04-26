@@ -30,7 +30,7 @@ export default CustomerReviews;
 
 export const ReviewCard = ({ card }: ReviewCardProps) => {
   return (
-    <div className="flex flex-col gap-3 justify-center py-6 px-2 min-h-[240px] whyus-card-shadow h-[240px]">
+    <div className="flex flex-col gap-3 justify-center py-6 px-2 min-h-[240px] whyus-card-shadow h-[240px] rounded-md">
       <div className="flex gap-3 justify-center items-center">
         <div className="flex flex-col items-end">
           <h2 className="text-lg">{card.name}</h2>
