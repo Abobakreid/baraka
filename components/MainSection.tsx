@@ -7,7 +7,7 @@ import React from "react";
 const MainSection = () => {
   return (
     <section className="container mx-auto p-4">
-      <h1 className="text-lg font-semibold text-center tracking-wide">
+      <h1 className="text-lg font-semibold text-center tracking-wide my-8">
         السمكرة والدهان من أهم العمليات التي تحافظ على الشكل الجمالي للسيارة
         وتضمن حمايتها من العوامل البيئية.
       </h1>
@@ -33,8 +33,8 @@ const MainSection = () => {
         </div>
       </div>
       <MainSectionList listItem={MainSectionLists[1]} className="list-disc" />
-      <div className="grid grid-cols-1 my-10">
-        <div className="relative rounded-2xl overflow-hidden h-[300px]">
+      <div className="grid grid-cols-1 my-10 md:my-16">
+        <div className="relative rounded-2xl overflow-hidden h-[400px]">
           <Image
             src={"/maintenance/main-1.png"}
             alt="image"
@@ -57,7 +57,7 @@ export const MainSectionList = ({
 }: MainSectionListProps) => {
   return (
     <div className="">
-      <h2 className="text-2xl font-semibold">{listItem.title}</h2>
+      <h2 className="text-2xl font-semibold mb-2">{listItem.title}</h2>
       <ul className={cn(`${className} `)}>
         {listItem.list.map((item, index) => (
           <li key={index} className="text-[#414248] text-xl">

@@ -10,12 +10,12 @@ import {
 } from "./ui/accordion";
 import { NavAccordionProps } from "@/types";
 
-const NavAccordion = ({ subLinks, active }: NavAccordionProps) => {
-  const params = usePathname();
-  const name = params && params.split("/").slice(-1);
+const NavAccordion = ({ subLinks, active, handelClose }: NavAccordionProps) => {
+  const pathname = usePathname();
+  const name = pathname && pathname.split("/").slice(-1);
   return (
-    <Accordion type="single" collapsible>
-      <AccordionItem value="item-1">
+    <Accordion type="single" defaultValue="item-6" collapsible>
+      <AccordionItem value="item-6">
         <AccordionTrigger
           className={cn("p-0 font-semibold cursor-pointers", {
             "text-[#80191E]": active,
@@ -25,11 +25,12 @@ const NavAccordion = ({ subLinks, active }: NavAccordionProps) => {
         </AccordionTrigger>
         <AccordionContent className="flex flex-col pb-0 ">
           {subLinks.map((link, index) => {
-            const isActive = name && name[0] === link.label;
+            const isActive = name && decodeURIComponent(name[0]) === link.label;
             return (
               <Link
                 key={index}
                 href={link.route}
+                onClick={() => handelClose && handelClose()}
                 className={cn(
                   "flex w-full font-semibold py-1.5 hover:py-3 transition-all",
                   {

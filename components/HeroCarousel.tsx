@@ -1,3 +1,4 @@
+"use client";
 import {
   Carousel,
   CarouselContent,
@@ -7,11 +8,17 @@ import {
 } from "@/components/ui/carousel";
 import { slides } from "@/constants";
 import Image from "next/image";
+import Autoplay from "embla-carousel-autoplay";
 const HeroCarousel = () => {
   return (
     <Carousel
       dir="ltr"
-      className="h-[500px] xl:min-h-[700px] xl:h-[700px] w-[100%]"
+      className="h-[450px] xl:min-h-[628px] xl:h-[628px] w-[100%]"
+      plugins={[
+        Autoplay({
+          delay: 3000, // Time between slides (in milliseconds)
+        }),
+      ]}
     >
       <CarouselContent className="size-full">
         {slides.map((slide, index) => (
@@ -21,14 +28,14 @@ const HeroCarousel = () => {
                 src={slide.src}
                 alt={slide.alt}
                 fill
-                className="object-cover fixed"
+                className="object-center md:object-cover fixed"
               />
             </div>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="left-2" />
-      <CarouselNext className="right-2" />
+      <CarouselPrevious className="left-2 bg-slate-50/80 text-[#475467]/50" />
+      <CarouselNext className="right-2 bg-slate-50/80 text-[#475467]/50" />
     </Carousel>
   );
 };

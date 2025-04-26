@@ -13,7 +13,7 @@ const OverlaySection = ({ text, image }: { text: string; image: string }) => {
           loading="lazy"
         />
       </div>
-      <div className="absolute inset-0 z-50 flex flex-col gap-3 justify-center items-center">
+      <div className="absolute inset-0 z-10 flex flex-col gap-3 justify-center items-center">
         <h2 className="text-[clamp(1.6rem,2cqw,6rem)] xl:text-5xl text-white">
           {text}
         </h2>

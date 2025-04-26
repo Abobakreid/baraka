@@ -21,8 +21,6 @@ const page = async ({ params }: { params: Promise<{ type: string }> }) => {
     .find((link) => link.route === "/car-maintenance")
     ?.subLinks?.map((item) => item.label);
 
-  console.log(validTypes, "validTypes");
-
   if (!validTypes?.includes(decodeURIComponent(searchText))) {
     redirect("/");
   }

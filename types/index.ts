@@ -42,6 +42,8 @@ export type CarouselsProps = {
   nextClassName: string;
   dir: string;
   className?: string;
+  carouselStyle?: string;
+  containerStyle?: string;
 };
 export type ReviewCardProps = {
   card: {
@@ -86,7 +88,6 @@ export type DetailsProps = {
 };
 export type DiscountProps = {
   value: string;
-  newItem: boolean;
   className?: string;
 };
 export type FilterFormProps = {
@@ -105,7 +106,7 @@ export type FilterFormAccordionProps = {
 export type GlobalHeadProps = {
   headText: string;
   description?: string;
-  className?: string;
+  imageClassName?: string;
 };
 
 export type ImplementCardProps = {
@@ -135,6 +136,7 @@ export type MainSectionListProps = {
 export type NavAccordionProps = {
   active: boolean;
   subLinks: { route: string; label: string }[];
+  handelClose?: () => void;
 };
 export type OfferCardProps = {
   card: {
@@ -163,7 +165,6 @@ export type PaginationsProps = {
   total_pages: number;
   page: number;
   limit: number;
-  link: string;
 };
 export type RenderInputProps = {
   type: string;
@@ -174,7 +175,7 @@ export type RenderInputProps = {
   className?: string;
 };
 export type ServiceCardProps = {
-  serviceData: { image: string; head: string };
+  serviceData: { image: string; head: string; route: string };
 };
 export type SocialProofProps = {
   text: string;
@@ -195,7 +196,6 @@ export type PaginationProductSideProps = {
   price: boolean;
   page: number;
   limit: number;
-  link: string;
   totalPages: number;
   filterOptions: { label: string; value: string }[];
   data: {

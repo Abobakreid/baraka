@@ -8,25 +8,18 @@ import { OfferCardProps } from "@/types";
 
 const Offers = () => {
   return (
-    <section className="container mx-auto p-4 mt-16">
-      <GlobalHead headText=" عروض بركة اوتو كير" className="xl:bottom-0" />
+    <section className="container mx-auto p-4 md:px-8 mt-16">
+      <GlobalHead headText=" عروض بركة اوتو كير" imageClassName="xl:bottom-0" />
       <Carousels
         dir="ltr"
-        previousClassName="left-0 2xl:-left-10"
-        nextClassName="right-0 2xl:-right-10"
+        previousClassName="max-sm:hidden sm:-left-9 md:-left-10"
+        nextClassName="max-sm:hidden sm:-right-9 md:-right-10"
+        containerStyle="sm:px-6 lg:px-0"
       >
         {offerCards.map((card, index) => (
           <CarouselItem
             key={index}
-            className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4 px-3"
-          >
-            <OfferCard card={card} />
-          </CarouselItem>
-        ))}
-        {offerCards.map((card, index) => (
-          <CarouselItem
-            key={index}
-            className="md:basis-1/2 lg:basis-1/3  xl:basis-1/4 px-3"
+            className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4 px-4"
           >
             <OfferCard card={card} />
           </CarouselItem>
@@ -40,13 +33,13 @@ export default Offers;
 
 export const OfferCard = ({ card }: OfferCardProps) => {
   return (
-    <div className="flex flex-col gap-3 justify-center text-right offer-card-shadow rounded-md py-6 px-2">
+    <div className="flex flex-col gap-3 justify-center text-right whyus-card-shadow rounded-md py-6 px-2">
       <div className="relative h-64 w-full">
         <Image src={card.image} alt="image" fill className="object-contain" />
         {card.isNew ? (
-          <Discount value="جديد" newItem={card.isNew} />
+          <Discount value="جديد" />
         ) : (
-          <Discount value={card.discountPercentage} newItem={card.isNew} />
+          <Discount value={card.discountPercentage} />
         )}
         {card.sold && (
           <div className="bg-[#FEEDEE] py-2 absolute bottom-0 w-full text-center">

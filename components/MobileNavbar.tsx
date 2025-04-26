@@ -28,28 +28,34 @@ const MobileNavbar = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handelClose = () => {
+    setOpen(false);
+  };
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger>
         <Menu size={24} className="cursor-pointer" />
       </SheetTrigger>
-      <SheetContent className="w-[400px] sm:w-[540px] py-6" side="left">
+      <SheetContent className="w-[280px] sm:w-[540px] py-6" side="left">
         <SheetHeader className="flex flex-row justify-between items-center">
           <div className="flex gap-1">
-            <Image
-              src={"/logo/name.svg"}
-              alt="logo"
-              width={90}
-              height={60}
-              className="object-contain w-14 xl:w-20"
-            />
-            <Image
-              src={"/logo/logo.svg"}
-              alt="logo"
-              width={35}
-              height={35}
-              className="object-contain w-10 xl:w-14"
-            />
+            <Link href={"/"} className="flex gap-1" onClick={handelClose}>
+              <Image
+                src={"/logo/name.svg"}
+                alt="logo"
+                width={90}
+                height={60}
+                className="object-contain w-14 xl:w-20"
+              />
+              <Image
+                src={"/logo/logo.svg"}
+                alt="logo"
+                width={35}
+                height={35}
+                className="object-contain w-10 xl:w-14"
+              />
+            </Link>
           </div>
           <XIcon
             size={22}
@@ -74,6 +80,7 @@ const MobileNavbar = () => {
                     active={isActive}
                     key={index}
                     subLinks={link.subLinks!}
+                    handelClose={handelClose}
                   />
                 );
               } else {
@@ -81,6 +88,9 @@ const MobileNavbar = () => {
                   <Link
                     key={index}
                     href={link.route}
+                    onClick={() => {
+                      setOpen(false);
+                    }}
                     className={cn("font-medium flex", {
                       "text-[#80191E]": isActive,
                     })}

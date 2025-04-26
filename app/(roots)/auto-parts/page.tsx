@@ -17,10 +17,11 @@ export async function generateMetadata({
 }: {
   searchParams: Promise<AutoPartsSearchParams>;
 }) {
-  const page = Number((await searchParams).page) || 1;
-  const limit = Number((await searchParams).limit) || 6;
-  const search = (await searchParams).search || "";
-  const category = (await searchParams).category || "";
+  const resolvedParams = await searchParams;
+  const page = Number(resolvedParams.page) || 1;
+  const limit = resolvedParams.limit ? Number(resolvedParams.limit) : 6;
+  const search = resolvedParams.search || "";
+  const category = resolvedParams.category || "";
 
   // Fetch filtered data
   const { data, total, totalPages, currentPage } = await getFilteredParts({
@@ -137,10 +138,11 @@ const page = async ({
 }: {
   searchParams: Promise<AutoPartsSearchParams>;
 }) => {
-  const page = Number((await searchParams).page) || 1;
-  const limit = Number((await searchParams).limit) || 6;
-  const search = (await searchParams).search || "";
-  const category = (await searchParams).category || "";
+  const resolvedParams = await searchParams;
+  const page = Number(resolvedParams.page) || 1;
+  const limit = resolvedParams.limit ? Number(resolvedParams.limit) : 6;
+  const search = resolvedParams.search || "";
+  const category = resolvedParams.category || "";
   const data = {
     search,
     category,
@@ -153,7 +155,7 @@ const page = async ({
       <SocialProof
         text={"قطع غيار السيارات"}
         proofCard={autoPartsSocialProof}
-        className="flex justify-center gap-24 "
+        className="flex justify-center sm:gap-24 "
         cardClassName="flex-row-reverse"
       />
       <PaginationProductSide
@@ -163,7 +165,6 @@ const page = async ({
         page={page}
         limit={limit}
         totalPages={filteredData.totalPages}
-        link={`/auto-parts`}
       />
       <CTA
         title="هناك منتجات اخري غير معروضة,تواصل معنا للحصول علي المزيد من التفاصيل

@@ -6,8 +6,8 @@ const Details = ({ product }: DetailsProps) => {
   const goldStar = 5 - grayStar;
   return (
     <section className="container mx-auto p-4 md:mt-16">
-      <div className="grid grid-cols-1 md:grid-cols-12">
-        <div className="col-span-4 relative h-[460px] overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+        <div className="max-sm:col-span-12 col-span-4 relative max-sm:h-[400px] h-[460px] overflow-hidden">
           <Image
             src={product.image}
             alt="oil image"
@@ -15,7 +15,7 @@ const Details = ({ product }: DetailsProps) => {
             className="object-contain"
           />
         </div>
-        <div className="col-span-8 max-w-[650px] flex flex-col gap-5">
+        <div className="col-span-8 max-w-[650px] flex flex-col gap-5 md:pt-5">
           <h2 className="text-2xl font-semibold">{product.title}</h2>
           <div className="flex gap-5">
             <div className="flex gap-2">

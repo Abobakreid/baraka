@@ -7,7 +7,7 @@ import { workCardsData } from "@/constants/ourWorkData";
 const LastWorks = () => {
   return (
     <section className="container mx-auto px-4 my-10">
-      <GlobalHead headText="مشاريعنا الاخيرة" />
+      <GlobalHead headText="مشاريعنا الاخيرة" imageClassName="!bottom-0" />
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-4">
         <div className="col-span-6">
           <WorkCard

@@ -11,27 +11,29 @@ const SocialProof = ({
   cardClassName,
 }: SocialProofProps) => {
   return (
-    <section className="container mx-auto p-4 mt-16">
-      <GlobalHead headText={text} className="xl:bottom-0" />
+    <section className="container mx-auto p-4 md:mt-16">
+      <GlobalHead headText={text} imageClassName="xl:bottom-0" />
       <div
         className={cn(
-          `grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-3 ${className}`
+          `grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 ${className}`
         )}
       >
         {proofCard.map((proof, index) => (
           <div
             key={index}
             className={cn(
-              `flex gap-2 items-center justify-end ${cardClassName}`
+              `flex gap-2 items-center justify-end max-sm:justify-center ${cardClassName}`
             )}
           >
-            <h2 className="text-2xl font-extrabold ">{proof.text}</h2>
+            <h2 className="text-xl md:text-2xl font-extrabold ">
+              {proof.text}
+            </h2>
             <Image
               src={proof.image}
               alt="logoMark"
-              width={50}
-              height={50}
-              className="object-contain"
+              width={45}
+              height={45}
+              className="object-contain max-md:w-6 max-md:h-6"
             />
           </div>
         ))}

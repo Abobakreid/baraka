@@ -93,14 +93,9 @@ export const slides = [
 
 export const whyUsCards = [
   {
-    image: "/whyus/why-1.svg",
-    head: "الخبرة والكفاءة",
-    paragraph: "فريق عمل محترف ذو خبرة واسعة في صيانة وفحص السيارات.",
-  },
-  {
-    image: "/whyus/why-2.svg",
-    head: "أحدث الأجهزة والتقنيات",
-    paragraph: "ستخدام معدات متطورة تضمن دقة الفحص وسرعة الإصلاح.",
+    image: "/whyus/why-4.svg",
+    head: "خدمة العملاء الممتازة",
+    paragraph: "تقديم استشارات فنية وخدمة عملاء متواصلة لضمان رضا العملاء.",
   },
   {
     image: "/whyus/why-3.svg",
@@ -108,28 +103,37 @@ export const whyUsCards = [
     paragraph: "قطع غيار أصلية وخدمات عالية الجودة عليها ضمان كامل.",
   },
   {
-    image: "/whyus/why-4.svg",
-    head: "خدمة العملاء الممتازة",
-    paragraph: "تقديم استشارات فنية وخدمة عملاء متواصلة لضمان رضا العملاء.",
+    image: "/whyus/why-2.svg",
+    head: "أحدث الأجهزة والتقنيات",
+    paragraph: "ستخدام معدات متطورة تضمن دقة الفحص وسرعة الإصلاح.",
+  },
+  {
+    image: "/whyus/why-1.svg",
+    head: "الخبرة والكفاءة",
+    paragraph: "فريق عمل محترف ذو خبرة واسعة في صيانة وفحص السيارات.",
   },
 ];
 
 export const servicesCards = [
   {
-    image: "/services/service-1.png",
-    head: "صيانة السيارات",
-  },
-  {
-    image: "/services/service-2.png",
-    head: "فحص السيارات",
+    image: "/services/service-4.png",
+    head: "الزيوت",
+    route: "/car-oils",
   },
   {
     image: "/services/service-3.png",
     head: "قطع الغيار",
+    route: "/auto-parts",
   },
   {
-    image: "/services/service-4.png",
-    head: "الزيوت",
+    image: "/services/service-2.png",
+    head: "فحص السيارات",
+    route: "/car-inspection",
+  },
+  {
+    image: "/services/service-1.png",
+    head: "صيانة السيارات",
+    route: "/car-maintenance/ميكانيكا",
   },
 ];
 
@@ -149,6 +153,38 @@ export const offerCards = [
     discountPercentage: "25%",
     isNew: false,
     sold: true,
+  },
+  {
+    image: "/offers/offer-1.png",
+    head: "Sailun - 185/65/14 ATREZZO ECO HR",
+    price: "1511000",
+    discountPercentage: "",
+    isNew: true,
+    sold: false,
+  },
+  {
+    image: "/offers/offer-1.png",
+    head: "Sailun - 185/65/14 ATREZZO ECO HR",
+    price: "1511000",
+    discountPercentage: "25%",
+    isNew: false,
+    sold: false,
+  },
+  {
+    image: "/offers/offer-1.png",
+    head: "Sailun - 185/65/14 ATREZZO ECO HR",
+    price: "1511000",
+    discountPercentage: "",
+    isNew: true,
+    sold: false,
+  },
+  {
+    image: "/offers/offer-1.png",
+    head: "Sailun - 185/65/14 ATREZZO ECO HR",
+    price: "1511000",
+    discountPercentage: "25%",
+    isNew: false,
+    sold: false,
   },
   {
     image: "/offers/offer-1.png",
@@ -187,6 +223,10 @@ export const footerLinks = [
       {
         route: "/car-oils",
         label: "الزيوت",
+      },
+      {
+        route: "/our-works",
+        label: "اعمالنا",
       },
     ],
   },
@@ -254,14 +294,14 @@ export const workCardsColors = {
 
 export const CustomerReviewsData = [
   {
-    image: "/customers/customer-3.svg",
+    image: "/customers/avatar.svg",
     name: "محمد حسن",
     modification: "فحص السيارة",
     review:
       "بعد ضبط زوايا العجلات، لاحظت فرقًا كبيرًا في استقرار السيارة. الفريق كان محترفًا ويعرف عمله جيدًا. شكرًا لكم!",
   },
   {
-    image: "/customers/customer-2.svg",
+    image: "/customers/avatar.svg",
     name: "خالد علي",
     modification: "إصلاح الإطارات",
     review:
@@ -269,7 +309,7 @@ export const CustomerReviewsData = [
   },
 
   {
-    image: "/customers/customer-1.svg",
+    image: "/customers/avatar.svg",
     name: "احمد خالد",
     modification: "فحص السيارة",
     review:

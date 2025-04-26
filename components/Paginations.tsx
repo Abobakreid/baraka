@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import {
   Pagination,
@@ -6,25 +7,47 @@ import {
   PaginationItem,
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useSearchParams } from "next/navigation";
-import Link from "./Link";
 import { PaginationsProps } from "@/types";
-const Paginations = ({ total_pages, page, limit, link }: PaginationsProps) => {
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useQueryState } from "nuqs";
+import { Button } from "./ui/button";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef } from "react";
+const Paginations = ({ total_pages, limit }: PaginationsProps) => {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const params = new URLSearchParams(searchParams.toString());
+  const [limitParams, setLimitParams] = useQueryState("limit", {
+    defaultValue: `${limit}`,
+  });
+  const [pageParams, setPageParams] = useQueryState("page", {
+    defaultValue: "1",
+  });
 
-  const createPageLink = (pageNum: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    console.log(searchParams, "qparams");
-    console.log(searchParams.toString(), "qparams");
-    params.set("page", pageNum.toString());
-    params.set("limit", limit.toString());
-    return `${link}?${params.toString()}`;
+  const updatePage = (pageNum: number) => {
+    setLimitParams(`${limit}`);
+    setPageParams(pageNum.toString());
+    if (pathname === "/our-works") {
+      const ele = document.getElementById("allworks");
+      ele?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 50, behavior: "smooth" });
+    }
   };
+
+  useEffect(() => {
+    router.refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageParams, router, params.get("page")]);
+
   const getPageNumbers = () => {
     const pages = [];
     const maxPagesToShow = limit;
-    let startPage = Math.max(1, page - Math.floor(maxPagesToShow / 2));
+    let startPage = Math.max(
+      1,
+      Number(pageParams) - Math.floor(maxPagesToShow / 2)
+    );
     let endPage = startPage + maxPagesToShow - 1;
 
     if (endPage > total_pages) {
@@ -42,52 +65,67 @@ const Paginations = ({ total_pages, page, limit, link }: PaginationsProps) => {
     <Pagination dir="ltr" className="w-full py-5">
       <PaginationContent className="w-full flex flex-row justify-between">
         <PaginationItem>
-          <Link
-            href={createPageLink(page - 1)}
-            className={cn("flex gap-1.5 items-center", {
-              "pointer-events-none opacity-50": page === 1,
-            })}
+          <Button
+            onClick={() =>
+              Number(pageParams) > 1 && updatePage(Number(pageParams) - 1)
+            }
+            className={cn(
+              "flex gap-1.5 items-center cursor-pointer bg-white text-black hover:bg-white",
+              {
+                "pointer-events-none opacity-50": Number(pageParams) === 1,
+              }
+            )}
           >
             <ChevronLeft />
             السابق
-          </Link>
+          </Button>
         </PaginationItem>
         <div className="flex">
           <div className="flex gap-2">
             {getPageNumbers().map((pageNum) => {
-              const isActive = pageNum === page;
+              const isActive = pageNum === Number(pageParams);
               return (
                 <PaginationItem key={pageNum}>
-                  <Link
-                    href={createPageLink(pageNum)}
-                    className={cn("px-2.5", {
-                      "border-[1px] border-solid border-[oklch(0.551 0.027 264.364)] hover:bg-[oklch(0.551 0.027 264.364)] rounded-sm px- py-0":
-                        isActive,
-                    })}
+                  <Button
+                    onClick={() => updatePage(pageNum)}
+                    className={cn(
+                      "px-3 bg-white text-black hover:bg-white cursor-pointer",
+                      {
+                        "border-[1px] py-0 border-solid border-[oklch(0.551 0.027 264.364)] hover:bg-[oklch(0.551 0.027 264.364)] rounded-sm px- py-0":
+                          isActive,
+                      }
+                    )}
                   >
                     {pageNum}
-                  </Link>
+                  </Button>
                 </PaginationItem>
               );
             })}
           </div>
 
-          {total_pages > 5 && page < total_pages - 2 && (
+          {total_pages > 5 && Number(pageParams) < total_pages - 2 && (
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
           )}
         </div>
         <PaginationItem>
-          <Link
-            href={createPageLink(page + 1)}
-            className={cn("flex gap-1.5 items-center", {
-              "pointer-events-none opacity-50": page === total_pages,
-            })}
+          <Button
+            onClick={() =>
+              Number(pageParams) < total_pages &&
+              updatePage(Number(pageParams) + 1)
+            }
+            className={cn(
+              "flex gap-1.5 items-center cursor-pointer bg-white text-black hover:bg-white",
+              {
+                "pointer-events-none opacity-50":
+                  Number(pageParams) === total_pages,
+              }
+            )}
           >
             التالي
             <ChevronRight />
-          </Link>
+          </Button>
         </PaginationItem>
       </PaginationContent>
     </Pagination>

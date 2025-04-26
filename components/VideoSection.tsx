@@ -10,7 +10,11 @@ const VideoSection = ({
 }: VideoSectionProps) => {
   return (
     <section className="container mx-auto p-4 md:mt-14 flex flex-col items-center gap-5">
-      <GlobalHead headText={title} description={description} />
+      <GlobalHead
+        headText={title}
+        description={description}
+        imageClassName="!bottom-0"
+      />
 
       {contact && <ContactUs />}
       <figure>

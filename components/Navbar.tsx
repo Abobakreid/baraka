@@ -11,25 +11,26 @@ import { NavNavigationMenu } from "./NavigationMenu";
 
 const Navbar = () => {
   const pathname = usePathname();
-  console.log(pathname, "pathname");
   return (
-    <section className="border-b-[1px] border-solid border-[#E7E8EC]">
+    <section className="border-b-[1px] border-solid border-[#E7E8EC] sticky top-0 left-0 w-full z-30 text-[#1E1F24] bg-white">
       <header className="container mx-auto px-3 flex flex-row justify-between py-4 items-center">
         <div className="flex gap-1">
-          <Image
-            src={"/logo/name.svg"}
-            alt="logo"
-            width={90}
-            height={65}
-            className="object-contain w-14 xl:w-20"
-          />
-          <Image
-            src={"/logo/logo.svg"}
-            alt="logo"
-            width={35}
-            height={35}
-            className="object-contain w-9 xl:w-14"
-          />
+          <Link href={"/"} className="flex gap-1">
+            <Image
+              src={"/logo/name.svg"}
+              alt="logo"
+              width={90}
+              height={65}
+              className="object-contain w-14 xl:w-20"
+            />
+            <Image
+              src={"/logo/logo.svg"}
+              alt="logo"
+              width={35}
+              height={35}
+              className="object-contain w-9 xl:w-14"
+            />
+          </Link>
         </div>
         <nav className="gap-6 hidden xl:flex">
           {navbarLinks.map((link, index) => {

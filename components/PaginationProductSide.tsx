@@ -5,6 +5,7 @@ import Discount from "./Discount";
 import FilterForm from "./FilterForm";
 import Link from "./Link";
 import Paginations from "./Paginations";
+import { ScrollArea } from "./ui/scroll-area";
 
 export const dynamic = "force";
 const PaginationProductSide = ({
@@ -12,26 +13,34 @@ const PaginationProductSide = ({
   data,
   page,
   limit,
-  link,
   filterOptions,
   totalPages,
 }: PaginationProductSideProps) => {
   return (
     <section className="container mx-auto p-4">
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 mt-3">
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 max-md:gap-x-0 lg:gap-4 mt-3 w-full md:pt-10">
         <FilterForm price={price} filterOptions={filterOptions} />
-        <div className="grid grid-cols-2 xl:grid-cols-3 col-span-9 gap-6 pt-10">
-          {data.map((card, index) => (
-            <FilterCard key={index} card={card} />
-          ))}
-        </div>
+        <ScrollArea
+          className={cn(
+            "grid grid-cols-1 max-md:col-span-12 xl:col-span-9 gap-6  h-[900px]",
+            {
+              "max-sm:h-[500px] h-[600px]": data.length <= 3,
+              "max-sm:h-[350px]": data.length <= 2,
+              "max-sm:h-[500px]": data.length <= 4 && data.length > 2,
+            }
+          )}
+          dir="rtl"
+        >
+          <div className="grid grid-cols-2 md:grid-cols-3 w-full gap-6">
+            {data.map((card, index) => (
+              <FilterCard key={index} card={card} />
+            ))}
+          </div>
+        </ScrollArea>
       </div>
-      <Paginations
-        page={page}
-        limit={limit}
-        link={link}
-        total_pages={totalPages}
-      />
+      {limit !== 0 && (
+        <Paginations page={page} limit={limit} total_pages={totalPages} />
+      )}
     </section>
   );
 };
@@ -48,9 +57,9 @@ export const FilterCard = ({ card }: FilterCardProps) => {
       {card.id ? (
         <Link
           href={`/oil-details/${card.id}`}
-          className="flex flex-col gap-2 justify-center text-right rounded-md py-6 px-2 border-[1px] border-solid border-[#E7E8EC]"
+          className="flex flex-col max-sm:gap-1 gap-2 justify-center text-right rounded-md py-6 px-2 border-[1px] border-solid border-[#E7E8EC]"
         >
-          <div className="relative h-64 w-full">
+          <div className="relative max-md:h-32 h-64 w-full">
             <Image
               src={card.image}
               alt="image"
@@ -58,17 +67,10 @@ export const FilterCard = ({ card }: FilterCardProps) => {
               className="object-contain"
             />
             {card.isNew && (
-              <Discount
-                value="جديد"
-                newItem={card.isNew}
-                className={"md:left-10 md:-top-1"}
-              />
+              <Discount value="جديد" className={"md:left-10 md:-top-1"} />
             )}
             {card.discountPercentage && (
-              <Discount
-                value={`${card.discountPercentage}%`}
-                newItem={card.isNew}
-              />
+              <Discount value={`${card.discountPercentage}%`} />
             )}
             {card.finished && (
               <div className="bg-[#FEEDEE] py-2 absolute bottom-0 w-full text-center">
@@ -84,7 +86,11 @@ export const FilterCard = ({ card }: FilterCardProps) => {
                 <span className="text-sm xl:text-xl font-semibold text-primary">
                   LE {DiscountedPrice}
                 </span>
-                <span className={cn("line-through text-md text-[#80828D]", {})}>
+                <span
+                  className={cn(
+                    "line-through text-sm xl:text-xl text-[#80828D]"
+                  )}
+                >
                   LE {card.price}
                 </span>
               </>
@@ -96,8 +102,8 @@ export const FilterCard = ({ card }: FilterCardProps) => {
           </div>
         </Link>
       ) : (
-        <div className="flex flex-col gap-2 justify-center text-right rounded-md py-6 px-2 border-[1px] border-solid border-[#E7E8EC]">
-          <div className="relative h-64 w-full">
+        <div className="flex flex-col max-sm:gap-1 gap-2 justify-center text-right rounded-md py-6 px-2 border-[1px] border-solid border-[#E7E8EC]">
+          <div className="relative max-md:h-32 h-64 w-full">
             <Image
               src={card.image}
               alt="image"
@@ -105,17 +111,10 @@ export const FilterCard = ({ card }: FilterCardProps) => {
               className="object-contain"
             />
             {card.isNew && (
-              <Discount
-                value="جديد"
-                newItem={card.isNew}
-                className={"md:left-10 md:-top-1"}
-              />
+              <Discount value="جديد" className={"md:left-10 md:-top-1"} />
             )}
             {card.discountPercentage && (
-              <Discount
-                value={`${card.discountPercentage}%`}
-                newItem={card.isNew}
-              />
+              <Discount value={`${card.discountPercentage}%`} />
             )}
             {card.finished && (
               <div className="bg-[#FEEDEE] py-2 absolute bottom-0 w-full text-center">
@@ -131,7 +130,11 @@ export const FilterCard = ({ card }: FilterCardProps) => {
                 <span className="text-sm xl:text-xl font-semibold text-primary">
                   LE {DiscountedPrice}
                 </span>
-                <span className={cn("line-through text-md text-[#80828D]", {})}>
+                <span
+                  className={cn(
+                    "line-through text-sm xl:text-xl text-[#80828D]"
+                  )}
+                >
                   LE {card.price}
                 </span>
               </>

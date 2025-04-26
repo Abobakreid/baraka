@@ -32,7 +32,6 @@ export const getFilteredData = cache(
     limit: number;
   }) => {
     let filtered = oilsAbout;
-
     if (data.search) {
       const searchLower = data.search.toLowerCase();
       filtered = filtered.filter(
@@ -54,6 +53,15 @@ export const getFilteredData = cache(
     }
 
     // Pagination
+    if (data.limit === 0) {
+      const total = filtered.length;
+      return {
+        data: filtered,
+        total,
+        totalPages: 0,
+        currentPage: data.page,
+      };
+    }
     const total = filtered.length;
     const totalPages = Math.ceil(total / data.limit);
     const startIndex = (data.page - 1) * data.limit;

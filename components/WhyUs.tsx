@@ -3,16 +3,25 @@ import GlobalHead from "./GlobalHead";
 import { whyUsCards } from "@/constants";
 import Image from "next/image";
 import { WhyUsCardProps } from "@/types";
+import Carousels from "./Carousels";
+import { CarouselItem } from "./ui/carousel";
 
 const WhyUs = () => {
   return (
     <section className="container mx-auto p-4">
       <GlobalHead headText="لماذا نحن؟" />
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+      <Carousels
+        dir="ltr"
+        previousClassName="max-sm:hidden  sm:-left-9 lg:hidden"
+        nextClassName="max-sm:hidden  sm:-right-9  lg:hidden"
+        containerStyle="sm:px-6 lg:px-0"
+      >
         {whyUsCards.map((card, index) => (
-          <WhyUsCard key={index} cardData={card} />
+          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4 px-4">
+            <WhyUsCard key={index} cardData={card} />
+          </CarouselItem>
         ))}
-      </div>
+      </Carousels>
     </section>
   );
 };

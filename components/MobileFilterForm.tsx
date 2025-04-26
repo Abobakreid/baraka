@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import {
@@ -7,18 +8,17 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { FilterFormSchema, TypeOption, typeOptions } from "@/lib/utils";
+import { maxPrice } from "@/constants";
+import { FilterFormSchema } from "@/lib/utils";
+import { FilterFormProps } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Funnel, XIcon } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { FilterFormAccordion } from "./FilterForm";
 import { Form } from "./ui/form";
-import { useQueryState } from "nuqs";
-import { useRouter, useSearchParams } from "next/navigation";
-import { maxPrice } from "@/constants";
-import { FilterFormProps } from "@/types";
 
 const MobileFilterForm = ({ price, filterOptions }: FilterFormProps) => {
   const searchParams = useSearchParams();
@@ -27,53 +27,21 @@ const MobileFilterForm = ({ price, filterOptions }: FilterFormProps) => {
   const [error, setError] = useState(false);
   const router = useRouter();
 
-  const [search, setSearch] = useQueryState("search", { defaultValue: "" });
-  const [category, setCategory] = useQueryState<TypeOption>("category", {
-    defaultValue: "all",
-    parse: (value) => {
-      // Validate that the value is in typeOptions
-      return typeOptions.includes(value as TypeOption)
-        ? (value as TypeOption)
-        : "all";
-    },
-    serialize: (value) => (value ? value : ""),
-  });
-  const [brand, setBrand] = useQueryState<TypeOption>("brand", {
-    defaultValue: "all",
-    parse: (value) => {
-      // Validate that the value is in typeOptions
-      return typeOptions.includes(value as TypeOption)
-        ? (value as TypeOption)
-        : "all";
-    },
-    serialize: (value) => (value ? value : ""),
-  });
-
-  const [priceRange, setPriceRange] = useQueryState("priceRange", {
-    defaultValue: [0, maxPrice],
-    parse: (value) => value.split(",").map(Number),
-    serialize: (value) => value.join(","),
-  });
-
-  console.log(search, category, priceRange, brand);
-
   const form = useForm<z.infer<typeof FilterFormSchema>>({
     resolver: zodResolver(FilterFormSchema),
     defaultValues: {
-      search: search || "",
-      range: priceRange,
-      rangeFrom: priceRange[0] || 0,
-      rangeTo: priceRange[1] || 0,
-      type: category !== "all" ? category : brand !== "all" ? brand : "all",
+      search: "",
+      range: [0, 5000],
+      rangeFrom: 0,
+      rangeTo: 5000,
+      type: "all",
     },
   });
 
   // Watch all form fields for changes
   const formValues = form.watch();
 
-  function onSubmit(data: z.infer<typeof FilterFormSchema>) {
-    console.log(data);
-  }
+  function onSubmit(data: z.infer<typeof FilterFormSchema>) {}
 
   useEffect(() => {
     router.refresh();
@@ -81,69 +49,16 @@ const MobileFilterForm = ({ price, filterOptions }: FilterFormProps) => {
     formValues.range,
     formValues.rangeFrom,
     formValues.rangeTo,
-    search,
+    formValues.search,
     price,
     router,
     params.get("priceRange"),
     params.get("category"),
     params.get("brand"),
     params.get("search"),
+    params.get("page"),
   ]);
-  useEffect(() => {
-    if (price) {
-      if (formValues.rangeFrom || formValues.rangeTo) {
-        if (formValues.rangeFrom && formValues.rangeTo) {
-          setPriceRange([
-            Number(formValues.rangeFrom),
-            Number(formValues.rangeTo),
-          ]);
-        } else if (formValues.rangeTo) {
-          setPriceRange([0, Number(formValues.rangeTo)]);
-        } else if (formValues.rangeFrom) {
-          setPriceRange([Number(formValues.rangeFrom), Number(maxPrice)]);
-        }
-      }
-    }
-    router.refresh();
-  }, [formValues.rangeFrom, formValues.rangeTo, price, setPriceRange, router]);
 
-  useEffect(() => {
-    if (price) {
-      if (formValues.range) {
-        if (formValues.range.length > 0) {
-          setPriceRange([
-            Number(formValues.range[0]),
-            Number(formValues.range[1]),
-          ]);
-        }
-      }
-    }
-    router.refresh();
-  }, [formValues.range, price, setPriceRange, router]);
-
-  useEffect(() => {
-    if (formValues.search) {
-      setSearch(`${String(formValues.search)}`);
-    }
-    if (price) {
-      if (formValues.type) {
-        setBrand(String(formValues.type) as TypeOption);
-      }
-    } else {
-      if (formValues.type) {
-        setCategory(String(formValues.type) as TypeOption);
-      }
-    }
-    router.refresh();
-  }, [
-    formValues.search,
-    formValues.type,
-    price,
-    setSearch,
-    setCategory,
-    setBrand,
-    router,
-  ]);
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {

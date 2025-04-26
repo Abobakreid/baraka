@@ -51,8 +51,7 @@ export const FilterFormSchema = z.object({
 });
 
 //todo: check is used or not
-export const getWorkCardsData = (page: number, limit: number) => {
-  console.log(page, limit);
+export const getWorkCardsData = () => {
   return workCardsData;
 };
 

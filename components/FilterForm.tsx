@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
@@ -28,53 +29,22 @@ const FilterForm = ({ price, filterOptions }: FilterFormProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
-  // const { setBrand, setRange, setSearchValue } = useGlobalContextApi();
-  const [search, setSearch] = useQueryState("search", { defaultValue: "" });
-  const [category, setCategory] = useQueryState<TypeOption>("category", {
-    defaultValue: "all",
-    parse: (value) => {
-      // Validate that the value is in typeOptions
-      return typeOptions.includes(value as TypeOption)
-        ? (value as TypeOption)
-        : "all";
-    },
-    serialize: (value) => (value ? value : ""),
-  });
-  const [brand, setBrand] = useQueryState<TypeOption>("brand", {
-    defaultValue: "all",
-    parse: (value) => {
-      // Validate that the value is in typeOptions
-      return typeOptions.includes(value as TypeOption)
-        ? (value as TypeOption)
-        : "all";
-    },
-    serialize: (value) => (value ? value : ""),
-  });
-  const [priceRange, setPriceRange] = useQueryState("priceRange", {
-    defaultValue: [0, maxPrice],
-    parse: (value) => value.split(",").map(Number),
-    serialize: (value) => value.join(","),
-  });
-
-  console.log(search, category, priceRange, brand);
 
   const form = useForm<z.infer<typeof FilterFormSchema>>({
     resolver: zodResolver(FilterFormSchema),
     defaultValues: {
-      search: search || "",
-      range: priceRange,
-      rangeFrom: priceRange[0] || 0,
-      rangeTo: priceRange[1] || 0,
-      type: category !== "all" ? category : brand !== "all" ? brand : "all",
+      search: params.get("search") || "",
+      range: [0, 5000],
+      rangeFrom: 0,
+      rangeTo: 5000,
+      type: "all",
     },
   });
 
   // Watch all form fields for changes
   const formValues = form.watch();
 
-  function onSubmit(data: z.infer<typeof FilterFormSchema>) {
-    console.log(data);
-  }
+  function onSubmit(data: z.infer<typeof FilterFormSchema>) {}
 
   useEffect(() => {
     router.refresh();
@@ -82,65 +52,13 @@ const FilterForm = ({ price, filterOptions }: FilterFormProps) => {
     formValues.range,
     formValues.rangeFrom,
     formValues.rangeTo,
-    search,
+    formValues.search,
     price,
     params.get("priceRange"),
     params.get("category"),
     params.get("brand"),
     params.get("search"),
-  ]);
-
-  useEffect(() => {
-    if (price) {
-      if (formValues.rangeFrom || formValues.rangeTo) {
-        if (formValues.rangeFrom && formValues.rangeTo) {
-          setPriceRange([
-            Number(formValues.rangeFrom),
-            Number(formValues.rangeTo),
-          ]);
-        } else if (formValues.rangeTo) {
-          setPriceRange([0, Number(formValues.rangeTo)]);
-        } else if (formValues.rangeFrom) {
-          setPriceRange([Number(formValues.rangeFrom), Number(maxPrice)]);
-        }
-      }
-    }
-  }, [formValues.rangeFrom, formValues.rangeTo, price, setPriceRange, router]);
-
-  useEffect(() => {
-    if (price) {
-      if (formValues.range) {
-        if (formValues.range.length > 0) {
-          setPriceRange([
-            Number(formValues.range[0]),
-            Number(formValues.range[1]),
-          ]);
-        }
-      }
-    }
-  }, [formValues.range, price, setPriceRange, router]);
-
-  useEffect(() => {
-    if (formValues.search) {
-      setSearch(`${String(formValues.search)}`);
-    }
-    if (price) {
-      if (formValues.type) {
-        setBrand(String(formValues.type) as TypeOption);
-      }
-    } else {
-      if (formValues.type) {
-        setCategory(String(formValues.type) as TypeOption);
-      }
-    }
-  }, [
-    formValues.search,
-    formValues.type,
-    price,
-    setSearch,
-    setCategory,
-    setBrand,
-    router,
+    params.get("page"),
   ]);
 
   const handleReset = () => {
@@ -164,28 +82,19 @@ const FilterForm = ({ price, filterOptions }: FilterFormProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="col-span-3 h-full px-4 rounded-md flex flex-col gap-3"
+        className="max-md:col-span-12 xl:col-span-3 h-full px-4 rounded-md flex flex-col gap-3 md:-mt-10"
       >
-        <div
-          tabIndex={0} // Make the div focusable
-          className="flex items-center px-2 border-2 border-[#E7E8EC] rounded-md pr-2.5 focus-within:ring-2 focus-within:ring-blue-500"
-        >
+        <div className="flex items-center px-2 border-2 border-[#E7E8EC] rounded-md pr-2.5 focus-within:ring-2 focus-within:ring-blue-500">
           <Search className="text-gray-500" />
           <CustomInput
             control={form.control}
-            inputType={InputType.TEXT}
+            inputType={InputType.SEARCH}
             name="search"
             placeholder="ما الذي تبحث عنه؟"
             type="text"
             inputClassName="focus-visible:ring-0 focus-visible:outline-0 border-0"
           />
           <MobileFilterForm price={price} filterOptions={filterOptions} />
-          <Button
-            type="submit"
-            className="text-lg hidden focus-within:flex" // Hidden by default, shown on focus
-          >
-            بحث
-          </Button>
         </div>
         <div className="hidden xl:flex xl:flex-col h-full">
           <FilterFormAccordion
@@ -219,8 +128,8 @@ export const FilterFormAccordion = ({
 }: FilterFormAccordionProps) => {
   return (
     <Accordion
-      type="single"
-      collapsible
+      type="multiple"
+      defaultValue={["item-1", "item-2"]}
       className="flex flex-col gap-5 h-full pb-5 w-full xl:border-[1px] border-solid border-[#E7E8EC] xl:px-3"
     >
       <AccordionItem value="item-1">
@@ -231,7 +140,7 @@ export const FilterFormAccordion = ({
           <CustomInput
             control={control}
             inputType={InputType.RADIO}
-            name="type"
+            name={price ? "brand" : "category"}
             placeholder=""
             type="text"
           >

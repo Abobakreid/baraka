@@ -25,6 +25,16 @@ export const getFilteredParts = cache(
       );
     }
 
+    if (data.limit === 0) {
+      const total = filtered.length;
+      return {
+        data: filtered,
+        total,
+        totalPages: 0,
+        currentPage: data.page,
+      };
+    }
+
     // Pagination
     const total = filtered.length;
     const totalPages = Math.ceil(total / data.limit);

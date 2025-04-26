@@ -15,11 +15,12 @@ export async function generateMetadata({
 }: {
   searchParams: Promise<OilsSearchParams>;
 }) {
-  const page = Number((await searchParams).page) || 1;
-  const limit = Number((await searchParams).limit) || 6;
-  const search = (await searchParams).search || "";
-  const brand = (await searchParams).brand || "";
-  const range = (await searchParams).priceRange || `0,${maxPrice}`;
+  const resolvedParams = await searchParams;
+  const page = Number(resolvedParams.page) || 1;
+  const limit = resolvedParams.limit ? Number(resolvedParams.limit) : 6;
+  const search = resolvedParams.search || "";
+  const brand = resolvedParams.brand || "";
+  const range = resolvedParams.priceRange || `0,${maxPrice}`;
 
   const priceRange = !Array.isArray(range)
     ? range.split(",").map(Number)
@@ -156,20 +157,18 @@ const page = async ({
 }) => {
   const resolvedParams = await searchParams;
   const page = Number(resolvedParams.page) || 1;
-  const limit = Number(resolvedParams.limit) || 6;
+  const limit = resolvedParams.limit ? Number(resolvedParams.limit) : 6;
   const search = resolvedParams.search || "";
   const brand = resolvedParams.brand || "";
-  const range = resolvedParams.priceRange || "";
+  const range = resolvedParams.priceRange || `0,${maxPrice}`;
 
   const priceRange =
     !Array.isArray(range) || range !== ""
       ? range.split(",").map(Number)
-      : [0, 1000];
+      : [0, maxPrice];
   const priceMin = priceRange[0];
   const priceMax = priceRange[1];
-
   const data = { search, brand, priceMin, priceMax, page, limit };
-  console.log(data, "data before pass");
   const FilterData = await getFilteredData(data);
 
   return (
@@ -181,7 +180,6 @@ const page = async ({
         filterOptions={filterOilsOptions}
         page={page}
         limit={limit}
-        link={`/car-oils`}
         totalPages={FilterData.totalPages!}
       />
       <CTA
