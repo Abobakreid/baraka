@@ -12,8 +12,8 @@ const CustomerReviews = () => {
       <GlobalHead headText="آراء عملائنا" />
       <Carousels
         dir="ltr"
-        previousClassName="max-sm:hidden sm:-left-9 2xl:-left-2"
-        nextClassName="max-sm:hidden sm:-right-9  2xl:-right-2"
+        previousClassName="max-sm:hidden sm:-left-9 2xl:-left-8"
+        nextClassName="max-sm:hidden sm:-right-9  2xl:-right-8"
         containerStyle="sm:px-6 lg:px-0"
       >
         {CustomerReviewsData.map((card, index) => (
