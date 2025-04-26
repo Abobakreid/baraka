@@ -15,14 +15,14 @@ const SocialProof = ({
       <GlobalHead headText={text} imageClassName="xl:bottom-0" />
       <div
         className={cn(
-          `grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 ${className}`
+          `grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 place-items-center ${className}`
         )}
       >
         {proofCard.map((proof, index) => (
           <div
             key={index}
             className={cn(
-              `flex gap-2 items-center justify-end max-sm:justify-center ${cardClassName}`
+              `flex gap-2 items-center justify-end max-md:w-36  ${cardClassName}`
             )}
           >
             <h2 className="text-xl md:text-2xl font-extrabold ">

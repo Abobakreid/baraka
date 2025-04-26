@@ -9,7 +9,7 @@ import { ReviewCardProps } from "@/types";
 const CustomerReviews = () => {
   return (
     <section className="container mx-auto px-4 mt-4">
-      <GlobalHead headText="آراء عملائنا" />
+      <GlobalHead headText="آراء عملائنا" imageClassName="!bottom-0" />
       <Carousels
         dir="ltr"
         previousClassName="max-sm:hidden sm:-left-9 2xl:-left-8"

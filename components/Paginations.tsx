@@ -30,7 +30,13 @@ const Paginations = ({ total_pages, limit }: PaginationsProps) => {
     setPageParams(pageNum.toString());
     if (pathname === "/our-works") {
       const ele = document.getElementById("allworks");
-      ele?.scrollIntoView({ behavior: "smooth" });
+      const elementPosition =
+        ele && ele.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = (elementPosition && elementPosition - 100) || 0;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
     } else {
       window.scrollTo({ top: 50, behavior: "smooth" });
     }

@@ -24,9 +24,9 @@ const PaginationProductSide = ({
           className={cn(
             "grid grid-cols-1 max-md:col-span-12 xl:col-span-9 gap-6  h-[900px]",
             {
-              "max-sm:h-[500px] h-[600px]": data.length <= 3,
+              "max-sm:h-[600px] h-[600px]": data.length <= 3,
               "max-sm:h-[350px]": data.length <= 2,
-              "max-sm:h-[500px]": data.length <= 4 && data.length > 2,
+              "max-sm:h-[600px]": data.length <= 4 && data.length > 2,
             }
           )}
           dir="rtl"
