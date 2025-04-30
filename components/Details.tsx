@@ -97,14 +97,6 @@ export const MainDetails = ({ product }: DetailsProps) => {
             <p className="text-[#1E1F24]">{product.title}</p>
           </div>
         </div>
-        <div className="grid grid-cols-12 bg-[#EFF0F3] p-2">
-          <div className="col-span-4">
-            <p className="text-[#414248]">نوع المنتج </p>
-          </div>
-          <div className="col-span-8">
-            <p className="text-[#1E1F24]">{product.productType} </p>
-          </div>
-        </div>
         <div className="grid grid-cols-12 p-2">
           <div className="col-span-4">
             <p className="text-[#414248]"> اللزوجة</p>

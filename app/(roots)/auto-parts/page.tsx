@@ -30,7 +30,7 @@ export async function generateMetadata({
     page,
     limit,
   });
-
+  const filterPartsOptions = await filterProductsOptions();
   // Validate page
   if (page < 1 || page !== currentPage) {
     return {
@@ -72,6 +72,7 @@ export async function generateMetadata({
     "فرامل",
     "فلاتر",
     ...data.map((part) => part.title || "").filter(Boolean),
+    ...filterPartsOptions,
   ].filter(Boolean);
 
   return {

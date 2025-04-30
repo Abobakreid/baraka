@@ -35,6 +35,7 @@ export async function generateMetadata({
   const { data, total, totalPages, currentPage } = await getFilteredOils(
     searchData
   );
+  const filterOilsOptions = await filterProductsOptions();
 
   // Validate page
   if (page < 1 || page !== currentPage) {
@@ -90,6 +91,7 @@ export async function generateMetadata({
     "زيوت ديزل",
     // Add dynamic product titles if available
     ...data.map((product) => product.title || "").filter(Boolean),
+    ...filterOilsOptions,
   ].filter(Boolean);
 
   return {
