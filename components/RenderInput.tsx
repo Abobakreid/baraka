@@ -138,7 +138,7 @@ const RenderInput = ({
             field.onChange(value);
             handelChange(value, "radio", field.name);
           }}
-          defaultValue={"الكل"}
+          defaultValue={field.name === "brand" ? brand : category}
           className="flex flex-col items-end space-y-1"
         >
           {child}

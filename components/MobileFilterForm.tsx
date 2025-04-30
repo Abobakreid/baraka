@@ -89,7 +89,7 @@ const MobileFilterForm = ({
   const handleReset = () => {
     form.reset({
       search: "",
-      type: "all",
+      type: "الكل",
       range: [0, maxPrice],
       rangeFrom: 0,
       rangeTo: maxPrice,
