@@ -1,14 +1,13 @@
 import {} from "@/constants";
-import React from "react";
 import { FilterCard } from "./PaginationProductSide";
-import { oilsAbout } from "@/constants/oilsData";
+import { Product } from "@/types";
 
-const SimilarProducts = () => {
+const SimilarProducts = ({ related }: { related: Product[] }) => {
   return (
     <section className="container mx-auto p-4">
       <h2 className="text-3xl font-medium py-5">منتجات مشابهه</h2>
       <div className="grid grid-cols-2 xl:grid-cols-4 gap-8">
-        {oilsAbout.slice(0, 4).map((card, index) => (
+        {related.map((card, index) => (
           <FilterCard key={index} card={card} />
         ))}
       </div>

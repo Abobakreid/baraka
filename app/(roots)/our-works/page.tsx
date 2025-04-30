@@ -4,7 +4,7 @@ import LastWorks from "@/components/LastWorks";
 import OverlaySection from "@/components/OverlaySection";
 import Services from "@/components/Services";
 import VideoSection from "@/components/VideoSection";
-import { getWorksData } from "@/server/actions/work.actions";
+import { getWorksData } from "@/actions/work.actions";
 import { OurWorkSearchParams } from "@/types";
 
 const baseUrl = "https://baraka-carcare.com";

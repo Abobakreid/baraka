@@ -15,7 +15,7 @@ const CheckPoints = () => {
           {checkPoints.map((point, index) => (
             <div
               key={index}
-              className="flex gap-2 items-center point-shadow border-[1px] border-solid border-[#FEEDEE] rounded-md md:w-44 md:h-16"
+              className="flex gap-2 items-center point-shadow border-[1px] border-solid border-[#FEEDEE] rounded-md md:w-44 md:h-16 pr-3"
             >
               <div className="p-2 bg-[#feddee] rounded-full">
                 <Image
@@ -66,7 +66,7 @@ const CheckPoints = () => {
               alt="point Image"
               width={40}
               height={40}
-              className="absolute size-4 md:size-6 lg:size-8  right-40 bottom-24 sm:right-64 sm:bottom-36 md:right-52 md:bottom-36 lg:right-[300px] lg:bottom-44"
+              className="absolute size-4 md:size-6 lg:size-8  right-40 bottom-24 sm:right-64 sm:bottom-36 md:right-52 md:bottom-36 lg:right-[400px] lg:bottom-36"
             />
 
             <Image

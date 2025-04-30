@@ -1,13 +1,13 @@
+import {
+  filterProductsOptions,
+  getFilteredParts,
+} from "@/actions/parts.actions";
 import CTA from "@/components/CTA";
-import PaginationProductSide from "@/components/PaginationProductSide";
 import OverlaySection from "@/components/OverlaySection";
+import PaginationProductSide from "@/components/PaginationProductSide";
 import Services from "@/components/Services";
 import SocialProof from "@/components/SocialProof";
-import {
-  autoPartsSocialProof,
-  filterAutoPartsOptions,
-} from "@/constants/autoPartsData";
-import { getFilteredParts } from "@/server/actions/parts.actions";
+import { autoPartsSocialProof } from "@/constants/autoPartsData";
 import { AutoPartsSearchParams } from "@/types";
 
 const baseUrl = "https://baraka-carcare.com";
@@ -32,7 +32,7 @@ export async function generateMetadata({
   });
 
   // Validate page
-  if (page < 1 || page > totalPages || page !== currentPage) {
+  if (page < 1 || page !== currentPage) {
     return {
       title: "الصفحة غير موجودة | بركة اوتو كير",
       description:
@@ -80,8 +80,8 @@ export async function generateMetadata({
     keywords,
     icons: {
       icon: "/logo/logo.svg",
-      apple: "/logo/apple-touch-icon.png",
-      shortcut: "/logo/favicon.ico",
+      apple: "/logo/logo.svg",
+      shortcut: "/logo/logo.svg",
     },
     alternates: {
       canonical: `${baseUrl}/out-parts?${query.toString()}`,
@@ -150,6 +150,7 @@ const page = async ({
     limit,
   };
   const filteredData = await getFilteredParts(data);
+  const filterPartsOptions = await filterProductsOptions();
   return (
     <main>
       <SocialProof
@@ -159,9 +160,9 @@ const page = async ({
         cardClassName="flex-row-reverse"
       />
       <PaginationProductSide
-        price={false}
+        priceFiltering={false}
         data={filteredData.data}
-        filterOptions={filterAutoPartsOptions}
+        filterOptions={filterPartsOptions}
         page={page}
         limit={limit}
         totalPages={filteredData.totalPages}

@@ -1,16 +1,9 @@
+import { productById, relatedProducts } from "@/actions/oils.actions";
 import Details from "@/components/Details";
 import OverlaySection from "@/components/OverlaySection";
 import Services from "@/components/Services";
 import SimilarProducts from "@/components/SimilarProducts";
-import { productById, products } from "@/server/actions/oils.actions";
 import { notFound } from "next/navigation";
-
-export async function generateStaticParams() {
-  const res = await products();
-  return res.map((product) => ({
-    id: product.id.toString(),
-  }));
-}
 
 export async function generateMetadata({
   params,
@@ -65,7 +58,7 @@ export async function generateMetadata({
       url: `${baseUrl}/oil-details/${id}`,
       images: [
         {
-          url: `${baseUrl}/oil-details/${product.image}`,
+          url: `${baseUrl}/oil-details/${product.image_url}`,
           width: 800,
           height: 600,
           alt: product.title,
@@ -78,7 +71,7 @@ export async function generateMetadata({
       description: `زيت ${
         product.title
       } بسعر ${discountedPrice.toLocaleString()} ل.س. ${product.description}`,
-      images: [`${baseUrl}/oil-details/${product.image}`],
+      images: [`${baseUrl}/oil-details/${product.image_url}`],
     },
     robots: "index, follow",
     metadataBase: new URL(baseUrl),
@@ -86,16 +79,16 @@ export async function generateMetadata({
 }
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const id = (await params).id || "1";
+  const id = (await params).id;
   const product = await productById(id);
   if (!product) {
     notFound();
   }
-
+  const related = await relatedProducts(product.brand);
   return (
     <main>
       <Details product={product} />
-      <SimilarProducts />
+      {related && related.length > 0 && <SimilarProducts related={related} />}
       <Services />
       <OverlaySection
         text="حافظ على محرك سيارتك بأفضل الزيوت"

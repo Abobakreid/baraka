@@ -137,73 +137,6 @@ export const servicesCards = [
   },
 ];
 
-export const offerCards = [
-  {
-    image: "/offers/offer-1.png",
-    head: "Sailun - 185/65/14 ATREZZO ECO HR",
-    price: "1511000",
-    discountPercentage: "25%",
-    isNew: false,
-    sold: true,
-  },
-  {
-    image: "/offers/offer-1.png",
-    head: "Sailun - 185/65/14 ATREZZO ECO HR",
-    price: "1511000",
-    discountPercentage: "25%",
-    isNew: false,
-    sold: true,
-  },
-  {
-    image: "/offers/offer-1.png",
-    head: "Sailun - 185/65/14 ATREZZO ECO HR",
-    price: "1511000",
-    discountPercentage: "",
-    isNew: true,
-    sold: false,
-  },
-  {
-    image: "/offers/offer-1.png",
-    head: "Sailun - 185/65/14 ATREZZO ECO HR",
-    price: "1511000",
-    discountPercentage: "25%",
-    isNew: false,
-    sold: false,
-  },
-  {
-    image: "/offers/offer-1.png",
-    head: "Sailun - 185/65/14 ATREZZO ECO HR",
-    price: "1511000",
-    discountPercentage: "",
-    isNew: true,
-    sold: false,
-  },
-  {
-    image: "/offers/offer-1.png",
-    head: "Sailun - 185/65/14 ATREZZO ECO HR",
-    price: "1511000",
-    discountPercentage: "25%",
-    isNew: false,
-    sold: false,
-  },
-  {
-    image: "/offers/offer-1.png",
-    head: "Sailun - 185/65/14 ATREZZO ECO HR",
-    price: "1511000",
-    discountPercentage: "",
-    isNew: true,
-    sold: false,
-  },
-  {
-    image: "/offers/offer-1.png",
-    head: "Sailun - 185/65/14 ATREZZO ECO HR",
-    price: "1511000",
-    discountPercentage: "25%",
-    isNew: false,
-    sold: false,
-  },
-];
-
 export const footerLinks = [
   {
     head: "الخدمات",
@@ -353,4 +286,4 @@ export const MainSectionLists = [
   },
 ];
 
-export const maxPrice = 5000;
+export const maxPrice = 10000;

@@ -22,19 +22,20 @@ export type OurWorkSearchParams = {
   page: string;
   limit: string;
 };
+export type workCard = {
+  image: string;
+  title: string;
+  description: string;
+  whatWeDid: {
+    text: string;
+    colors: string;
+  }[];
+};
 export type AllWorksProps = {
   page: number;
   limit: number;
   totalPages: number;
-  data: {
-    image: string;
-    title: string;
-    description: string;
-    whatWeDid: {
-      text: string;
-      colors: string;
-    }[];
-  }[];
+  data: workCard[];
 };
 export type CarouselsProps = {
   children: React.ReactNode;
@@ -65,40 +66,43 @@ export type CustomInputProps = {
   control: Control<any>;
 };
 
+export type Product = {
+  id?: string;
+  image_url: string;
+  title: string;
+  price: number;
+  discountPercentage: number;
+  is_new: boolean;
+  sold_out: boolean;
+  brand?: string;
+  category?: string;
+  type: string;
+  Viscosity: string;
+  Compatibility: string;
+  Advantages: string;
+  productType: string;
+  quantity: number;
+  remain: number;
+  sold: number;
+  description: string;
+  rate: number;
+};
+
 export type DetailsProps = {
-  product: {
-    id: string;
-    image: string;
-    title: string;
-    price: string;
-    discountPercentage: string;
-    isNew: boolean;
-    finished: boolean;
-    brand: string;
-    Viscosity: string;
-    Compatibility: string;
-    Advantages: string;
-    productType: string;
-    cardType: string;
-    remain: number;
-    sold: number;
-    description: string;
-    rate: number;
-  };
+  product: Product;
 };
 export type DiscountProps = {
-  value: string;
+  value: number | string;
   className?: string;
 };
 export type FilterFormProps = {
-  price: boolean;
-  filterOptions: { label: string; value: string }[];
+  priceFiltering: boolean;
+  filterOptions: string[];
 };
 export type FilterFormAccordionProps = {
   control: Control<any>;
-  price: boolean;
-  error: boolean;
-  filterOptions: { label: string; value: string }[];
+  priceFiltering: boolean;
+  filterOptions: string[];
   handleReset: () => void;
   slideRange: number[] | undefined;
 };
@@ -117,12 +121,7 @@ export type ImplementCardProps = {
   };
 };
 export type WorkCardProps = {
-  card: {
-    image: string;
-    title: string;
-    description: string;
-    whatWeDid: { text: string; colors: string }[];
-  };
+  card: workCard;
   ImageClassName?: string;
   ContainerClassName?: string;
 };
@@ -139,27 +138,10 @@ export type NavAccordionProps = {
   handelClose?: () => void;
 };
 export type OfferCardProps = {
-  card: {
-    image: string;
-    head: string;
-    price: string;
-    discountPercentage: string;
-    isNew: boolean;
-    sold: boolean;
-  };
+  card: Product;
 };
 export type FilterCardProps = {
-  card: {
-    id?: string;
-    image: string;
-    title: string;
-    price: string;
-    discountPercentage: string;
-    isNew: boolean;
-    sold?: number;
-    cardType: string;
-    finished: boolean;
-  };
+  card: Product;
 };
 export type PaginationsProps = {
   total_pages: number;
@@ -193,21 +175,10 @@ export type WhyUsCardProps = {
   cardData: { image: string; head: string; paragraph: string };
 };
 export type PaginationProductSideProps = {
-  price: boolean;
+  priceFiltering: boolean;
   page: number;
   limit: number;
   totalPages: number;
-  filterOptions: { label: string; value: string }[];
-  data: {
-    id?: string;
-    image: string;
-    title: string;
-    type?: string;
-    price: string;
-    discountPercentage: string;
-    isNew: boolean;
-    sold?: number;
-    cardType: string;
-    finished: boolean;
-  }[];
+  filterOptions: string[];
+  data: Product[];
 };

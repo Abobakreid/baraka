@@ -1,11 +1,11 @@
+import { filterProductsOptions, getFilteredOils } from "@/actions/oils.actions";
 import CTA from "@/components/CTA";
 import OverlaySection from "@/components/OverlaySection";
 import PaginationProductSide from "@/components/PaginationProductSide";
 import Services from "@/components/Services";
 import SocialProof from "@/components/SocialProof";
 import { maxPrice } from "@/constants";
-import { filterOilsOptions, oilsSocialProof } from "@/constants/oilsData";
-import { getFilteredData } from "@/server/actions/oils.actions";
+import { oilsSocialProof } from "@/constants/oilsData";
 import { OilsSearchParams } from "../../../types/index";
 
 // todo: edit url
@@ -22,21 +22,22 @@ export async function generateMetadata({
   const brand = resolvedParams.brand || "";
   const range = resolvedParams.priceRange || `0,${maxPrice}`;
 
-  const priceRange = !Array.isArray(range)
-    ? range.split(",").map(Number)
-    : [0, 1000];
+  const priceRange =
+    !Array.isArray(range) || range !== ""
+      ? range.split(",").map(Number)
+      : [0, 1000];
   const priceMin = priceRange[0];
   const priceMax = priceRange[1];
 
   const searchData = { search, brand, priceMin, priceMax, page, limit };
 
   // Fetch filtered data
-  const { data, total, totalPages, currentPage } = await getFilteredData(
+  const { data, total, totalPages, currentPage } = await getFilteredOils(
     searchData
   );
 
   // Validate page
-  if (page < 1 || page > totalPages || page !== currentPage) {
+  if (page < 1 || page !== currentPage) {
     return {
       title: "الصفحة غير موجودة | بركة اوتو كير",
       description:
@@ -169,18 +170,18 @@ const page = async ({
   const priceMin = priceRange[0];
   const priceMax = priceRange[1];
   const data = { search, brand, priceMin, priceMax, page, limit };
-  const FilterData = await getFilteredData(data);
-
+  const FilterData = await getFilteredOils(data);
+  const filterOilsOptions = await filterProductsOptions();
   return (
     <main>
       <SocialProof text={"الزيوت"} proofCard={oilsSocialProof} />
       <PaginationProductSide
-        price={true}
+        priceFiltering={true}
         data={FilterData.data}
         filterOptions={filterOilsOptions}
         page={page}
         limit={limit}
-        totalPages={FilterData.totalPages!}
+        totalPages={FilterData.totalPages}
       />
       <CTA
         title="هناك منتجات اخري غير معروضة,تواصل معنا للحصول علي المزيد من التفاصيل

@@ -9,7 +9,7 @@ const Details = ({ product }: DetailsProps) => {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
         <div className="max-sm:col-span-12 col-span-4 relative max-sm:h-[400px] h-[460px] overflow-hidden">
           <Image
-            src={product.image}
+            src={product.image_url}
             alt="oil image"
             fill
             className="object-contain"

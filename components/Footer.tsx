@@ -71,7 +71,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="relative overflow-hidden h-[300px] col-span-4 px-4 max-lg:w-full min-w-[300px]">
+        <div className="relative overflow-hidden h-[300px] col-span-4 px-4 max-lg:w-full min-w-[300px] rounded-md">
           <Map />
         </div>
       </div>

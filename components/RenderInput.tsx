@@ -2,13 +2,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { maxPrice } from "@/constants";
-import { cn, TypeOption, typeOptions } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { RenderInputProps } from "@/types";
+import { useQueryState } from "nuqs";
 import { InputType } from "../types/enums";
 import { Input } from "./ui/input";
 import { RadioGroup } from "./ui/radio-group";
 import { Slider } from "./ui/slider";
-import { useQueryState } from "nuqs";
 
 const RenderInput = ({
   type,
@@ -18,36 +18,34 @@ const RenderInput = ({
   child,
   className,
 }: RenderInputProps) => {
-  const [search, setSearch] = useQueryState("search", { defaultValue: "" });
-  const [category, setCategory] = useQueryState<TypeOption>("category", {
-    defaultValue: "all",
-    parse: (value) => {
-      // Validate that the value is in typeOptions
-      return typeOptions.includes(value as TypeOption)
-        ? (value as TypeOption)
-        : "all";
-    },
-    serialize: (value) => (value ? value : ""),
+  const [search, setSearch] = useQueryState("search", {
+    defaultValue: "",
+    shallow: false,
+    throttleMs: 500,
   });
-  const [brand, setBrand] = useQueryState<TypeOption>("brand", {
-    defaultValue: "all",
-    parse: (value) => {
-      // Validate that the value is in typeOptions
-      return typeOptions.includes(value as TypeOption)
-        ? (value as TypeOption)
-        : "all";
-    },
-    serialize: (value) => (value ? value : ""),
+  const [category, setCategory] = useQueryState("category", {
+    defaultValue: "الكل",
+    shallow: false,
+    throttleMs: 500,
+  });
+  const [brand, setBrand] = useQueryState("brand", {
+    defaultValue: "الكل",
+    shallow: false,
+    throttleMs: 500,
   });
 
   const [priceRange, setPriceRange] = useQueryState("priceRange", {
     defaultValue: [0, maxPrice],
     parse: (value) => value.split(",").map(Number),
     serialize: (value) => value.join(","),
+    shallow: false,
+    throttleMs: 500,
   });
 
   const [limit, setLimit] = useQueryState("limit", {
     defaultValue: "6",
+    shallow: false,
+    throttleMs: 500,
   });
 
   const handelChange = (value: any, type: string, name?: string) => {
@@ -65,9 +63,9 @@ const RenderInput = ({
         setPriceRange(value);
       case "radio":
         if (name === "brand") {
-          setBrand(value as TypeOption);
+          setBrand(value);
         } else if (name === "category") {
-          setCategory(value as TypeOption);
+          setCategory(value);
         }
     }
   };
@@ -140,7 +138,7 @@ const RenderInput = ({
             field.onChange(value);
             handelChange(value, "radio", field.name);
           }}
-          defaultValue={"all"}
+          defaultValue={"الكل"}
           className="flex flex-col items-end space-y-1"
         >
           {child}

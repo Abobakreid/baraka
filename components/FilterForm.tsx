@@ -1,16 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { Form, FormControl, FormItem, FormLabel } from "@/components/ui/form";
 import { maxPrice } from "@/constants";
-import { FilterFormSchema, TypeOption, typeOptions } from "@/lib/utils";
+import { FilterFormSchema } from "@/lib/utils";
 import { FilterFormAccordionProps, FilterFormProps } from "@/types";
 import { InputType } from "@/types/enums";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -24,58 +22,72 @@ import {
 } from "./ui/accordion";
 import { Button } from "./ui/button";
 import { RadioGroupItem } from "./ui/radio-group";
-const FilterForm = ({ price, filterOptions }: FilterFormProps) => {
-  const [error, setError] = useState(false);
+const FilterForm = ({ priceFiltering, filterOptions }: FilterFormProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
+  const priceRange = params.get("priceRange");
+  const priceRangeArray = priceRange ? priceRange.split(",").map(Number) : [];
+  const rangeFrom = priceRangeArray[0] || 0;
+  const rangeTo = priceRangeArray[1] || maxPrice;
+  const range = [rangeFrom, rangeTo];
 
   const form = useForm<z.infer<typeof FilterFormSchema>>({
     resolver: zodResolver(FilterFormSchema),
     defaultValues: {
       search: params.get("search") || "",
-      range: [0, 5000],
-      rangeFrom: 0,
-      rangeTo: 5000,
-      type: "all",
+      range: range || [0, maxPrice],
+      rangeFrom: rangeFrom,
+      rangeTo: rangeTo,
+      type: "الكل",
     },
   });
 
   // Watch all form fields for changes
-  const formValues = form.watch();
-
-  function onSubmit(data: z.infer<typeof FilterFormSchema>) {}
+  const formRange = form.watch("range");
+  const formRangeFrom = form.watch("rangeFrom");
+  const formRangeTo = form.watch("rangeTo");
 
   useEffect(() => {
-    router.refresh();
-  }, [
-    formValues.range,
-    formValues.rangeFrom,
-    formValues.rangeTo,
-    formValues.search,
-    price,
-    params.get("priceRange"),
-    params.get("category"),
-    params.get("brand"),
-    params.get("search"),
-    params.get("page"),
-  ]);
+    const currentRange = form.getValues("range") || [0, 0];
+    const [newRangeFrom, newRangeTo] = currentRange;
+
+    // Only update if values differ to prevent infinite loops
+    if (form.getValues("rangeFrom") !== newRangeFrom) {
+      form.setValue("rangeFrom", newRangeFrom);
+    }
+    if (form.getValues("rangeTo") !== newRangeTo) {
+      form.setValue("rangeTo", newRangeTo);
+    }
+  }, [formRange, form]);
+
+  useEffect(() => {
+    const newRangeFrom = form.getValues("rangeFrom") || 0;
+    const newRangeTo = form.getValues("rangeTo") || 0;
+    const currentRange = form.getValues("range") || [0, 0];
+
+    // Only update range if it differs
+    if (currentRange[0] !== newRangeFrom || currentRange[1] !== newRangeTo) {
+      form.setValue("range", [newRangeFrom, newRangeTo]);
+    }
+  }, [formRangeFrom, formRangeTo, form]);
+
+  function onSubmit(data: z.infer<typeof FilterFormSchema>) {}
 
   const handleReset = () => {
     form.reset({
       search: "",
-      type: "all",
+      type: "الكل",
       range: [0, maxPrice],
       rangeFrom: 0,
       rangeTo: maxPrice,
     });
 
-    if (price) {
+    if (priceFiltering) {
       router.push("/car-oils");
     } else {
       router.push("/auto-parts");
     }
-    setError(false);
   };
 
   return (
@@ -94,14 +106,16 @@ const FilterForm = ({ price, filterOptions }: FilterFormProps) => {
             type="text"
             inputClassName="focus-visible:ring-0 focus-visible:outline-0 border-0"
           />
-          <MobileFilterForm price={price} filterOptions={filterOptions} />
+          <MobileFilterForm
+            priceFiltering={priceFiltering}
+            filterOptions={filterOptions}
+          />
         </div>
         <div className="hidden xl:flex xl:flex-col h-full">
           <FilterFormAccordion
             control={form.control}
-            price={price}
+            priceFiltering={priceFiltering}
             filterOptions={filterOptions}
-            error={error}
             handleReset={handleReset}
             slideRange={form.getValues("range")}
           />
@@ -119,11 +133,10 @@ const FilterForm = ({ price, filterOptions }: FilterFormProps) => {
 export default FilterForm;
 
 export const FilterFormAccordion = ({
-  price,
+  priceFiltering,
   filterOptions,
   control,
   handleReset,
-  error,
   slideRange,
 }: FilterFormAccordionProps) => {
   return (
@@ -134,13 +147,13 @@ export const FilterFormAccordion = ({
     >
       <AccordionItem value="item-1">
         <AccordionTrigger>
-          {price ? "الماركة" : "التصنيفات الرئيسية"}
+          {priceFiltering ? "الماركة" : "التصنيفات الرئيسية"}
         </AccordionTrigger>
         <AccordionContent className="flex flex-col py-2">
           <CustomInput
             control={control}
             inputType={InputType.RADIO}
-            name={price ? "brand" : "category"}
+            name={priceFiltering ? "brand" : "category"}
             placeholder=""
             type="text"
           >
@@ -150,17 +163,17 @@ export const FilterFormAccordion = ({
                 className="flex items-center space-x-3 space-y-0"
               >
                 <FormLabel className="font-normal text-[#333333]">
-                  {option.label}
+                  {option}
                 </FormLabel>
                 <FormControl>
-                  <RadioGroupItem value={option.value} />
+                  <RadioGroupItem value={option} />
                 </FormControl>
               </FormItem>
             ))}
           </CustomInput>
         </AccordionContent>
       </AccordionItem>
-      {price && (
+      {priceFiltering && (
         <AccordionItem value="item-2" className={`flex-1 `}>
           <AccordionTrigger>السعر</AccordionTrigger>
           <AccordionContent className="flex flex-col">
@@ -194,9 +207,6 @@ export const FilterFormAccordion = ({
                 label="الي"
               />
             </div>
-            {error && (
-              <span className="text-red-600">من يجب ان تكون اقل من الي</span>
-            )}
           </AccordionContent>
         </AccordionItem>
       )}

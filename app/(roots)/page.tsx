@@ -1,3 +1,4 @@
+import { getOffers } from "@/actions/offers.actions";
 import HeroCarousel from "@/components/HeroCarousel";
 import HeroHeader from "@/components/HeroHeader";
 import Offers from "@/components/Offers";
@@ -84,14 +85,15 @@ export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
 };
 
-export default function Home() {
+export default async function Home() {
+  const res = await getOffers();
   return (
     <main>
       <HeroCarousel />
       <HeroHeader />
       <WhyUs />
       <Services />
-      <Offers />
+      {res.data.length > 0 && <Offers products={res.data} />}
       <OverlaySection
         text="صيانة سيارتك بسهولة وأمان"
         image="/overlays/overlay-1.png"

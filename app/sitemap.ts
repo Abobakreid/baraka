@@ -1,12 +1,12 @@
+import { allProducts } from "@/actions/oils.actions";
 import { navbarLinks } from "@/constants";
-import { oilsAbout } from "@/constants/oilsData";
 import { slugify } from "@/lib/utils";
 
 export async function generateSitemaps() {
   try {
-    const articles = oilsAbout.length;
-
-    const totalUrls = articles;
+    const data = await allProducts();
+    const articles = data || [];
+    const totalUrls = articles.length;
 
     if (totalUrls <= 50000) {
       return [{ id: 0 }];
@@ -57,7 +57,11 @@ export default async function sitemap({ id }: { id: number }) {
   ];
 
   try {
-    const oilsPages = oilsAbout.map((oil) => ({
+    const data = await allProducts();
+    if (!data) {
+      return staticPages;
+    }
+    const oilsPages = data.map((oil) => ({
       url: `${baseUrl}/oil-details/${oil.id}`,
       lastmod: oil.updatedAt || new Date().toISOString(),
       changefreq: "weekly",

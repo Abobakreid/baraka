@@ -9,20 +9,21 @@ import {
 import { cn } from "@/lib/utils";
 import { PaginationsProps } from "@/types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { Button } from "./ui/button";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef } from "react";
 const Paginations = ({ total_pages, limit }: PaginationsProps) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const router = useRouter();
-  const params = new URLSearchParams(searchParams.toString());
   const [limitParams, setLimitParams] = useQueryState("limit", {
     defaultValue: `${limit}`,
+    shallow: false,
+    throttleMs: 500,
   });
   const [pageParams, setPageParams] = useQueryState("page", {
     defaultValue: "1",
+    shallow: false,
+    throttleMs: 500,
   });
 
   const updatePage = (pageNum: number) => {
@@ -41,11 +42,6 @@ const Paginations = ({ total_pages, limit }: PaginationsProps) => {
       window.scrollTo({ top: 50, behavior: "smooth" });
     }
   };
-
-  useEffect(() => {
-    router.refresh();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageParams, router, params.get("page")]);
 
   const getPageNumbers = () => {
     const pages = [];
@@ -76,7 +72,7 @@ const Paginations = ({ total_pages, limit }: PaginationsProps) => {
               Number(pageParams) > 1 && updatePage(Number(pageParams) - 1)
             }
             className={cn(
-              "flex gap-1.5 items-center cursor-pointer bg-white text-black hover:bg-white",
+              "flex gap-1.5 items-center cursor-pointer bg-white text-black  hover:bg-accent hover:text-accent-foreground",
               {
                 "pointer-events-none opacity-50": Number(pageParams) === 1,
               }
@@ -122,7 +118,7 @@ const Paginations = ({ total_pages, limit }: PaginationsProps) => {
               updatePage(Number(pageParams) + 1)
             }
             className={cn(
-              "flex gap-1.5 items-center cursor-pointer bg-white text-black hover:bg-white",
+              "flex gap-1.5 items-center cursor-pointer bg-white text-black hover:bg-accent hover:text-accent-foreground",
               {
                 "pointer-events-none opacity-50":
                   Number(pageParams) === total_pages,

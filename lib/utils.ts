@@ -1,5 +1,4 @@
 import { workCardsColors } from "@/constants";
-import { workCardsData } from "@/constants/ourWorkData";
 import { WorkCardColorKey } from "@/types";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -30,30 +29,13 @@ export const searchSchema = z.object({
     .optional(),
 });
 
-export const typeOptions = [
-  "all",
-  "shell",
-  "mobil",
-  "castrol",
-  "الميكانيكا",
-  "الكهرباء",
-  "العفشة",
-] as const;
-
-export type TypeOption = (typeof typeOptions)[number];
-
 export const FilterFormSchema = z.object({
   search: z.string().optional(),
-  type: z.enum(typeOptions).optional(),
+  type: z.string().optional(),
   range: z.array(z.number()).length(2).optional(),
   rangeFrom: z.number().min(0).optional(),
   rangeTo: z.number().min(0).optional(),
 });
-
-//todo: check is used or not
-export const getWorkCardsData = () => {
-  return workCardsData;
-};
 
 export const getDiscountedPrice = (
   price: number,

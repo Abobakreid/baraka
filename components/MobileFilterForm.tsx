@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import {
   Sheet,
@@ -20,44 +19,61 @@ import { z } from "zod";
 import { FilterFormAccordion } from "./FilterForm";
 import { Form } from "./ui/form";
 
-const MobileFilterForm = ({ price, filterOptions }: FilterFormProps) => {
+const MobileFilterForm = ({
+  priceFiltering,
+  filterOptions,
+}: FilterFormProps) => {
+  const router = useRouter();
+  const [open, setOpen] = useState<boolean>();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
-  const [open, setOpen] = useState<boolean>();
-  const [error, setError] = useState(false);
-  const router = useRouter();
+  const priceRange = params.get("priceRange");
+  const priceRangeArray = priceRange ? priceRange.split(",").map(Number) : [];
+  const rangeFrom = priceRangeArray[0] || 0;
+  const rangeTo = priceRangeArray[1] || maxPrice;
+  const range = [rangeFrom, rangeTo];
 
   const form = useForm<z.infer<typeof FilterFormSchema>>({
     resolver: zodResolver(FilterFormSchema),
     defaultValues: {
-      search: "",
-      range: [0, 5000],
-      rangeFrom: 0,
-      rangeTo: 5000,
-      type: "all",
+      search: params.get("search") || "",
+      range: range || [0, maxPrice],
+      rangeFrom: rangeFrom,
+      rangeTo: rangeTo,
+      type: "الكل",
     },
   });
 
   // Watch all form fields for changes
-  const formValues = form.watch();
-
-  function onSubmit(data: z.infer<typeof FilterFormSchema>) {}
+  const formRange = form.watch("range");
+  const formRangeFrom = form.watch("rangeFrom");
+  const formRangeTo = form.watch("rangeTo");
 
   useEffect(() => {
-    router.refresh();
-  }, [
-    formValues.range,
-    formValues.rangeFrom,
-    formValues.rangeTo,
-    formValues.search,
-    price,
-    router,
-    params.get("priceRange"),
-    params.get("category"),
-    params.get("brand"),
-    params.get("search"),
-    params.get("page"),
-  ]);
+    const currentRange = form.getValues("range") || [0, 0];
+    const [newRangeFrom, newRangeTo] = currentRange;
+
+    // Only update if values differ to prevent infinite loops
+    if (form.getValues("rangeFrom") !== newRangeFrom) {
+      form.setValue("rangeFrom", newRangeFrom);
+    }
+    if (form.getValues("rangeTo") !== newRangeTo) {
+      form.setValue("rangeTo", newRangeTo);
+    }
+  }, [formRange, form]);
+
+  useEffect(() => {
+    const newRangeFrom = form.getValues("rangeFrom") || 0;
+    const newRangeTo = form.getValues("rangeTo") || 0;
+    const currentRange = form.getValues("range") || [0, 0];
+
+    // Only update range if it differs
+    if (currentRange[0] !== newRangeFrom || currentRange[1] !== newRangeTo) {
+      form.setValue("range", [newRangeFrom, newRangeTo]);
+    }
+  }, [formRangeFrom, formRangeTo, form]);
+
+  function onSubmit(data: z.infer<typeof FilterFormSchema>) {}
 
   useEffect(() => {
     const handleResize = () => {
@@ -79,12 +95,11 @@ const MobileFilterForm = ({ price, filterOptions }: FilterFormProps) => {
       rangeTo: maxPrice,
     });
 
-    if (price) {
+    if (priceFiltering) {
       router.push("/car-oils");
     } else {
       router.push("/auto-parts");
     }
-    setError(false);
   };
 
   return (
@@ -112,9 +127,8 @@ const MobileFilterForm = ({ price, filterOptions }: FilterFormProps) => {
             >
               <FilterFormAccordion
                 control={form.control}
-                price={price}
+                priceFiltering={priceFiltering}
                 filterOptions={filterOptions}
-                error={error}
                 handleReset={handleReset}
                 slideRange={form.getValues("range")}
               />
