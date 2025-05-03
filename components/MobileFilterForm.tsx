@@ -50,7 +50,7 @@ const MobileFilterForm = ({
   const formRangeTo = form.watch("rangeTo");
 
   useEffect(() => {
-    const currentRange = form.getValues("range") || [0, 0];
+    const currentRange = form.getValues("range") || [0, maxPrice];
     const [newRangeFrom, newRangeTo] = currentRange;
 
     // Only update if values differ to prevent infinite loops
@@ -65,7 +65,7 @@ const MobileFilterForm = ({
   useEffect(() => {
     const newRangeFrom = form.getValues("rangeFrom") || 0;
     const newRangeTo = form.getValues("rangeTo") || 0;
-    const currentRange = form.getValues("range") || [0, 0];
+    const currentRange = form.getValues("range") || [0, maxPrice];
 
     // Only update range if it differs
     if (currentRange[0] !== newRangeFrom || currentRange[1] !== newRangeTo) {

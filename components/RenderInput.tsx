@@ -120,6 +120,7 @@ const RenderInput = ({
     case InputType.RANGE:
       return (
         <Slider
+          dir="rtl"
           value={field.value}
           onValueChange={(value) => {
             field.onChange(value);
