@@ -159,6 +159,7 @@ const page = async ({
         proofCard={autoPartsSocialProof}
         className="flex justify-center sm:gap-24 "
         cardClassName="flex-row-reverse"
+        link={true}
       />
       <PaginationProductSide
         priceFiltering={false}
