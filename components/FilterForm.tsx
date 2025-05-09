@@ -31,6 +31,7 @@ const FilterForm = ({ priceFiltering, filterOptions }: FilterFormProps) => {
   const rangeFrom = priceRangeArray[0] || 0;
   const rangeTo = priceRangeArray[1] || maxPrice;
   const range = [rangeFrom, rangeTo];
+  const [open, setOpen] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof FilterFormSchema>>({
     resolver: zodResolver(FilterFormSchema),
@@ -109,6 +110,8 @@ const FilterForm = ({ priceFiltering, filterOptions }: FilterFormProps) => {
           <MobileFilterForm
             priceFiltering={priceFiltering}
             filterOptions={filterOptions}
+            setOpen={setOpen}
+            open={open}
           />
         </div>
         <div className="hidden xl:flex xl:flex-col h-full">

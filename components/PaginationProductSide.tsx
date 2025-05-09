@@ -60,7 +60,7 @@ export const FilterCard = ({ card }: FilterCardProps) => {
       {card.Viscosity ? (
         <Link
           href={`/oil-details/${card.id}`}
-          className="flex flex-col max-sm:gap-1 gap-2 justify-center text-right rounded-md py-6 px-2 border-[1px] border-solid border-[#E7E8EC]"
+          className="flex flex-col max-sm:gap-1 gap-2 justify-center text-right rounded-md py-4 sm:py-6 px-2 border-[1px] border-solid border-[#E7E8EC]"
         >
           <div className="relative max-md:h-32 h-64 w-full">
             <Image
@@ -105,7 +105,7 @@ export const FilterCard = ({ card }: FilterCardProps) => {
           </div>
         </Link>
       ) : (
-        <div className="flex flex-col max-sm:gap-1 gap-2 justify-center text-right rounded-md py-6 px-2 border-[1px] border-solid border-[#E7E8EC]">
+        <div className="flex flex-col max-sm:gap-1 gap-2 justify-center text-right rounded-md py-4 sm:py-6 px-2 border-[1px] border-solid border-[#E7E8EC]">
           <div className="relative max-md:h-32 h-64 w-full">
             <Image
               src={card.image_url}

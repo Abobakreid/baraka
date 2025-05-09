@@ -99,6 +99,12 @@ export type FilterFormProps = {
   priceFiltering: boolean;
   filterOptions: string[];
 };
+
+export type MobileFilterFormProps = FilterFormProps & {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+};
+
 export type FilterFormAccordionProps = {
   control: Control<any>;
   priceFiltering: boolean;

@@ -9,11 +9,11 @@ import {
 } from "@/components/ui/sheet";
 import { maxPrice } from "@/constants";
 import { FilterFormSchema } from "@/lib/utils";
-import { FilterFormProps } from "@/types";
+import { MobileFilterFormProps } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Funnel, XIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { FilterFormAccordion } from "./FilterForm";
@@ -22,12 +22,16 @@ import { Form } from "./ui/form";
 const MobileFilterForm = ({
   priceFiltering,
   filterOptions,
-}: FilterFormProps) => {
+  open,
+  setOpen,
+}: MobileFilterFormProps) => {
   const router = useRouter();
-  const [open, setOpen] = useState<boolean>();
+
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
   const priceRange = params.get("priceRange");
+  const category = params.get("category");
+  const brand = params.get("brand");
   const priceRangeArray = priceRange ? priceRange.split(",").map(Number) : [];
   const rangeFrom = priceRangeArray[0] || 0;
   const rangeTo = priceRangeArray[1] || maxPrice;
@@ -84,7 +88,11 @@ const MobileFilterForm = ({
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [setOpen]);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [category, brand, setOpen]);
 
   const handleReset = () => {
     form.reset({
