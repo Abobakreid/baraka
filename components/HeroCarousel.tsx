@@ -13,7 +13,7 @@ const HeroCarousel = () => {
   return (
     <Carousel
       dir="ltr"
-      className="h-[450px] xl:min-h-[628px] xl:h-[628px] w-[100%]"
+      className="max-sm:h-[280px] h-[450px] xl:min-h-[628px] xl:h-[628px] w-[100%]"
       plugins={[
         Autoplay({
           delay: 3000, // Time between slides (in milliseconds)
