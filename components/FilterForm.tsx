@@ -94,7 +94,7 @@ const FilterForm = ({ priceFiltering, filterOptions }: FilterFormProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="max-md:col-span-12 xl:col-span-3 h-full px-4 rounded-md flex flex-col gap-3 md:-mt-10"
+        className="max-md:col-span-12 xl:col-span-3 h-full rounded-md flex flex-col gap-3 md:-mt-10"
       >
         <div className="flex items-center px-2 border-2 border-[#E7E8EC] rounded-md pr-2.5 focus-within:ring-2 focus-within:ring-blue-500">
           <Search className="text-gray-500" />
