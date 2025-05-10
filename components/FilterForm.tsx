@@ -165,7 +165,7 @@ export const FilterFormAccordion = ({
                 key={index}
                 className="flex items-center space-x-3 space-y-0"
               >
-                <FormLabel className="font-normal text-[#333333]">
+                <FormLabel className="font-normal text-[#333333] options">
                   {option}
                 </FormLabel>
                 <FormControl>

@@ -170,7 +170,6 @@ export type SocialProofProps = {
   proofCard: { text: string; image: string }[];
   className?: string;
   cardClassName?: string;
-  link?: boolean;
 };
 export type VideoSectionProps = {
   title: string;
