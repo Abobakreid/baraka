@@ -6,8 +6,7 @@ import Services from "@/components/Services";
 import VideoSection from "@/components/VideoSection";
 import { getWorksData } from "@/actions/work.actions";
 import { OurWorkSearchParams } from "@/types";
-
-const baseUrl = "https://baraka-carcare.com";
+import { baseUrl } from "@/constants";
 export async function generateMetadata({
   searchParams,
 }: {

@@ -7,10 +7,10 @@ import OverlaySection from "@/components/OverlaySection";
 import PaginationProductSide from "@/components/PaginationProductSide";
 import Services from "@/components/Services";
 import SocialProof from "@/components/SocialProof";
+import { baseUrl } from "@/constants";
 import { autoPartsSocialProof } from "@/constants/autoPartsData";
 import { AutoPartsSearchParams } from "@/types";
 
-const baseUrl = "https://baraka-carcare.com";
 // Generate metadata
 export async function generateMetadata({
   searchParams,

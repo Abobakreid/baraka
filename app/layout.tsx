@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import GlobalContext from "@/context/GlobalContext";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import localFont from "next/font/local";
+import { baseUrl } from "@/constants";
 
 const theSansArabic = localFont({
   src: [
@@ -42,10 +43,6 @@ const theSansArabic = localFont({
 //   weight: ["200", "300", "400", "500", "700"],
 //   preload: true,
 // });
-
-// todo: edit url
-
-const baseUrl = "https://baraka-carcare.com";
 
 export const metadata: Metadata = {
   // SEO: Title and Description

@@ -1,5 +1,5 @@
 import { allProducts } from "@/actions/oils.actions";
-import { navbarLinks } from "@/constants";
+import { baseUrl, navbarLinks } from "@/constants";
 import { slugify } from "@/lib/utils";
 
 export async function generateSitemaps() {
@@ -21,8 +21,6 @@ export async function generateSitemaps() {
 }
 
 export default async function sitemap({ id }: { id: number }) {
-  const baseUrl = "https://yourdomain.com";
-
   const staticPages = [
     {
       url: `${baseUrl}`,

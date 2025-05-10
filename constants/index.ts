@@ -287,3 +287,4 @@ export const MainSectionLists = [
 ];
 
 export const maxPrice = 10000;
+export const baseUrl = "https://baraka-sage.vercel.app/";

@@ -4,12 +4,10 @@ import OverlaySection from "@/components/OverlaySection";
 import PaginationProductSide from "@/components/PaginationProductSide";
 import Services from "@/components/Services";
 import SocialProof from "@/components/SocialProof";
-import { maxPrice } from "@/constants";
+import { baseUrl, maxPrice } from "@/constants";
 import { oilsSocialProof } from "@/constants/oilsData";
 import { OilsSearchParams } from "../../../types/index";
 
-// todo: edit url
-const baseUrl = "https://baraka-carcare.com";
 export async function generateMetadata({
   searchParams,
 }: {

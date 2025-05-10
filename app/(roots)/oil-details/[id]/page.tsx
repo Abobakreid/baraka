@@ -3,6 +3,7 @@ import Details from "@/components/Details";
 import OverlaySection from "@/components/OverlaySection";
 import Services from "@/components/Services";
 import SimilarProducts from "@/components/SimilarProducts";
+import { baseUrl } from "@/constants";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({
@@ -25,8 +26,6 @@ export async function generateMetadata({
     ? parseFloat(product.discountPercentage) / 100
     : 0;
   const discountedPrice = price * (1 - discount);
-  // todo: edit url
-  const baseUrl = "https://your-site.com";
 
   return {
     title: `${product.title} - ${product.brand.toUpperCase()} | متجر الزيوت`,

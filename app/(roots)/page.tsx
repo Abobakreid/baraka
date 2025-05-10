@@ -5,9 +5,8 @@ import Offers from "@/components/Offers";
 import OverlaySection from "@/components/OverlaySection";
 import Services from "@/components/Services";
 import WhyUs from "@/components/WhyUs";
+import { baseUrl } from "@/constants";
 import { Metadata } from "next";
-
-const baseUrl = "https://baraka-carcare.com";
 
 export const metadata: Metadata = {
   // SEO: Title and Description
